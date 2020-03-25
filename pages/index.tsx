@@ -1,7 +1,12 @@
-export default function Index() {
+import Radium from 'radium';
+import { GlobalStyles } from '../styles';
+
+const Index = () => {
 	return (
 		<div>
-			<p>Welcome</p>
+			<GlobalStyles />
 		</div>
 	);
-}
+};
+
+export default Radium(Index);
