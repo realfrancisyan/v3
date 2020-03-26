@@ -1,8 +1,10 @@
 const theme = {
 	colors: {
-		dark: '#35363a',
-		white: '#eee',
-		plainWhite: '#fff'
+		dark: '#242324',
+		gray: 'gray',
+		white: '#f6eef4',
+		plainWhite: '#fff',
+		transparent: 'transparent'
 	},
 	fontWeight: {
 		light: 300,

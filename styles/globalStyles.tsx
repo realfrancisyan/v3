@@ -1,9 +1,10 @@
 import Radium from 'radium';
+// import reset from './reset';
 import theme from './theme';
 
 const { colors, fontWeight } = theme;
 
-const rules = {
+let rules = {
 	body: {
 		background: colors.dark,
 		color: colors.white,
