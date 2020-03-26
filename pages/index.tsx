@@ -11,7 +11,7 @@ const jumbotron = {
 		width: '100%',
 		height: 400,
 		backgroundColor: colors.gray,
-		backgroundImage: `url(${HeroBackground})`,
+		// backgroundImage: `url(${HeroBackground})`,
 		backgroundSize: 'cover',
 		display: 'flex',
 		position: 'relative' as 'relative'
@@ -28,7 +28,7 @@ const jumbotron = {
 		alignSelf: 'flex-end',
 		zIndex: 1,
 		...layout.contentSize.desktop,
-		marginBottom: 100
+		margin: '0 auto 100px'
 	},
 	title: {
 		fontSize: 80,
