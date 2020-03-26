@@ -6,6 +6,9 @@ import { theme, layout } from '../styles';
 
 const { colors } = theme;
 
+const gradient =
+	'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%)';
+
 const header = {
 	self: {
 		position: 'fixed' as 'fixed',
@@ -18,7 +21,7 @@ const header = {
 		display: 'flex',
 		flexDirection: 'column' as 'column',
 		justifyContent: 'center',
-		background: 'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%)'
+		background: gradient
 	},
 	wrapper: {
 		display: 'flex',
@@ -58,19 +61,36 @@ const header = {
 
 interface IState {
 	title: string;
+	backgroundSwitch: boolean;
 }
 
 class Header extends React.Component<{}, IState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			title: 'Jiajun Yan'
+			title: 'Jiajun Yan',
+			backgroundSwitch: false
 		};
+
+		this.onScroll = this.onScroll.bind(this);
+	}
+	componentDidMount() {
+		window.addEventListener('scroll', this.onScroll);
+	}
+	// 根据滚动位置，更改导航栏背景
+	onScroll() {
+		const scrollTop =
+			window.pageYOffset ||
+			document.documentElement.scrollTop ||
+			document.body.scrollTop;
+		this.setState({ backgroundSwitch: scrollTop > 300 });
 	}
 	render() {
-		const { title } = this.state;
+		const { title, backgroundSwitch } = this.state;
+		const headerSelf = header.self;
+		headerSelf.background = backgroundSwitch ? colors.lightGray : gradient;
 		return (
-			<header style={header.self}>
+			<header style={headerSelf}>
 				<Head>
 					<title>{title}</title>
 					<meta
