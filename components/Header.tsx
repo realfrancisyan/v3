@@ -54,8 +54,13 @@ const header = {
 	anchor: {
 		color: colors.white,
 		textDecoration: 'none',
-		':hover': {
-			color: colors.plainWhite
+		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+			':hover': {
+				color: colors.plainWhite
+			}
+		},
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 14
 		}
 	}
 };
@@ -84,7 +89,10 @@ class Header extends React.Component<{}, IState> {
 			window.pageYOffset ||
 			document.documentElement.scrollTop ||
 			document.body.scrollTop;
-		this.setState({ backgroundSwitch: scrollTop > 250 });
+		
+		const screenWidth = screen.width;
+		const scrollHeight = screenWidth >= 1060 ? 250 : 100; // 区分桌面端和移动端的滑动距离
+		this.setState({ backgroundSwitch: scrollTop > scrollHeight });
 	}
 	render() {
 		const { title, backgroundSwitch } = this.state;

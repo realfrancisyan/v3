@@ -15,38 +15,58 @@ const footer = {
 	},
 	titleWrapper: {
 		display: 'flex',
-		paddingBottom: 20
+		paddingBottom: 20,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			flexDirection: 'column'
+		}
 	},
 	title: {
 		marginRight: 20,
 		fontSize: 30,
-		fontWeight: fontWeight.ultra
+		fontWeight: fontWeight.ultra,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			marginRight: 0,
+			marginBottom: 10,
+			fontSize: 16
+		}
 	},
 	copyright: {
 		alignSelf: 'flex-end',
 		fontSize: 14,
-		color: colors.gray
+		color: colors.gray,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			alignSelf: 'auto'
+		}
 	},
 	links: {
 		display: 'flex',
-		alignItems: 'center'
+		alignItems: 'center',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			flexDirection: 'column',
+			alignItems: 'stretch'
+		}
 	},
 	anchor: {
 		marginRight: 20,
 		fontSize: 14,
 		textDecoration: 'none',
 		display: 'flex',
-        alignItems: 'center',
-        color: colors.gray,
-		':hover': {
-			textDecoration: 'underline'
-		}
-    },
-    icon: {
-        marginRight: 5,
-        width: 15,
-        height: 15
-    }
+		alignItems: 'center',
+		color: colors.gray,
+		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+            ':hover': {
+                textDecoration: 'underline'
+            },
+        },
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+            marginBottom: 5
+        }
+	},
+	icon: {
+		marginRight: 5,
+		width: 15,
+		height: 15
+	}
 };
 
 class Footer extends React.Component {

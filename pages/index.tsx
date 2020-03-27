@@ -19,7 +19,10 @@ const jumbotron = {
 		backgroundImage: `url(${HeroBackground})`,
 		backgroundSize: 'cover',
 		display: 'flex',
-		position: 'relative' as 'relative'
+		position: 'relative' as 'relative',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			height: 300
+		}
 	},
 	cover: {
 		position: 'absolute' as 'absolute',
@@ -33,12 +36,19 @@ const jumbotron = {
 		alignSelf: 'flex-end',
 		zIndex: 1,
 		...layout.contentSize.desktop,
-		margin: '0 auto 100px'
+		margin: '0 auto 100px',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			margin: '0 auto 50px'
+		}
 	},
 	title: {
 		fontSize: 80,
 		color: colors.white,
-		fontWeight: fontWeight.ultra
+		fontWeight: fontWeight.ultra,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 56,
+			textAlign: 'center'
+		}
 	}
 };
 
@@ -47,7 +57,10 @@ const content = {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		padding: '200px 0',
-		display: 'flex'
+		display: 'flex',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			padding: '60px 0'
+		}
 	}
 };
 
@@ -55,21 +68,36 @@ const posts = {
 	self: {
 		width: '70%',
 		paddingRight: 20,
-		boxSizing: 'border-box' as 'border-box'
+		boxSizing: 'border-box' as 'border-box',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			width: '100%',
+			paddingRight: 0
+		}
 	},
 	data: {
 		paddingTop: 100,
-		width: '95%'
+		width: '95%',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			width: '100%',
+			paddingTop: 50
+		}
 	},
 	dataFirstChild: {
 		paddingTop: 0,
-		width: '95%'
+		width: '95%',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			width: '100%'
+		}
 	},
 	month: {
 		display: 'block',
 		color: colors.gray,
 		fontSize: 22,
-		paddingBottom: 20
+		paddingBottom: 20,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 14,
+			paddingBottom: 10
+		}
 	},
 	titleWrapper: {
 		display: 'block',
@@ -84,8 +112,14 @@ const posts = {
 		color: colors.white,
 		textDecoration: 'none',
 		cursor: 'pointer',
-		':hover': {
-			textDecoration: 'underline'
+		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+			':hover': {
+				textDecoration: 'underline'
+			}
+		},
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 35,
+			lineHeight: '44px'
 		}
 	}
 };
@@ -93,7 +127,10 @@ const posts = {
 const tags = {
 	self: {
 		width: '30%',
-		position: 'relative' as 'relative'
+		position: 'relative' as 'relative',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			display: 'none'
+		}
 	},
 	wrapper: {
 		position: 'sticky' as 'sticky',
@@ -114,9 +151,11 @@ const tags = {
 		fontWeight: fontWeight.bold,
 		cursor: 'pointer',
 		color: colors.gray,
-		':hover': {
-			textDecoration: 'underline',
-			color: colors.white
+		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+			':hover': {
+				textDecoration: 'underline',
+				color: colors.white
+			}
 		}
 	}
 };
