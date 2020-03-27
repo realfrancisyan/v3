@@ -54,13 +54,13 @@ const footer = {
 		alignItems: 'center',
 		color: colors.gray,
 		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
-            ':hover': {
-                textDecoration: 'underline'
-            },
-        },
+			':hover': {
+				textDecoration: 'underline'
+			}
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-            marginBottom: 5
-        }
+			marginBottom: 5
+		}
 	},
 	icon: {
 		marginRight: 5,
@@ -70,7 +70,14 @@ const footer = {
 };
 
 class Footer extends React.Component {
+	static async getInitialProps(context) {
+		console.log(123);
+		return {}
+	}
 	render() {
+		const footerStyle = JSON.parse(JSON.stringify(footer));
+		// console.log(this.props);
+		// footerStyle.self.width = this.props['url'].;
 		return (
 			<footer style={footer.self}>
 				<div style={footer.titleWrapper}>

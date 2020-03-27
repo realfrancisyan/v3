@@ -302,7 +302,7 @@ class Index extends React.Component<IProps> {
 										<span style={posts.month}>{monthData.month}</span>
 										{monthData.data.map((post: IPost) => {
 											return (
-												<Link href="/" key={post.id}>
+												<Link href={`/post/${post.id}`} key={post.id}>
 													<a style={posts.titleWrapper}>
 														<span style={posts.title} key={post.id}>
 															{post.title}

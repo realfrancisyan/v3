@@ -41,6 +41,9 @@ const header = {
 		fontSize: 20,
 		marginLeft: 10,
 		fontWeight: fontWeight.ultra,
+		color: colors.white,
+		textDecoration: 'none',
+		outline: 'none',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 16
 		}
@@ -89,7 +92,7 @@ class Header extends React.Component<{}, IState> {
 			window.pageYOffset ||
 			document.documentElement.scrollTop ||
 			document.body.scrollTop;
-		
+
 		const screenWidth = screen.width;
 		const scrollHeight = screenWidth >= 1060 ? 250 : 100; // 区分桌面端和移动端的滑动距离
 		this.setState({ backgroundSwitch: scrollTop > scrollHeight });
@@ -110,7 +113,11 @@ class Header extends React.Component<{}, IState> {
 				</Head>
 				<div style={header.wrapper}>
 					<div style={header.logoWrapper}>
-						<h1 style={header.logoTitle}>Jiajun Yan</h1>
+						<h1>
+							<Link href="/">
+								<a style={header.logoTitle}>Jiajun Yan</a>
+							</Link>
+						</h1>
 					</div>
 					<ul style={header.list}>
 						<li style={header.listItem}>
