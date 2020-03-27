@@ -89,6 +89,17 @@ class Post extends React.Component<IProps> {
 						source={post.body}
 						renderers={{
 							code: CodeBlock,
+							link: props => {
+								return (
+									<a
+										href={props.href}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{props.children[0].props.value}
+									</a>
+								);
+							},
 							image: props => {
 								const image = {
 									src: props.src.replace(
@@ -116,23 +127,23 @@ class Post extends React.Component<IProps> {
 				</article>
 				<style jsx global>{`
 					article h1 {
-						font-size: 48px;
+						font-size: 46px;
 						line-height: 72px;
 						padding: 40px 0;
 					}
 					article h2 {
-						font-size: 42px;
-						line-height: 56px;
-						padding: 40px 0;
-					}
-					article h3 {
 						font-size: 36px;
 						line-height: 48px;
 						padding: 40px 0;
 					}
+					article h3 {
+						font-size: 32px;
+						line-height: 42px;
+						padding: 40px 0;
+					}
 					article h4 {
 						font-size: 28px;
-						line-height: 36px;
+						line-height: 32px;
 						padding: 40px 0;
 					}
 					article h5 {
@@ -202,13 +213,16 @@ class Post extends React.Component<IProps> {
 						margin-bottom: 40px;
 					}
 					article a {
-						color: #f6eef4;
+                        color: #f6eef4;
 					}
 					article blockquote p {
 						padding-bottom: 0;
 					}
 					article pre {
 						margin-bottom: 40px !important;
+					}
+					article pre code {
+						font-size: 16px;
 					}
 					article hr {
 						border: 0;
@@ -224,6 +238,7 @@ class Post extends React.Component<IProps> {
 						box-shadow: 24px 0 0 0 #222, -24px 0 0 0 #222;
 					}
 				`}</style>
+                
 				<Footer />
 			</React.Fragment>
 		);
