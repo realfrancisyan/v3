@@ -1,5 +1,4 @@
 import Radium from 'radium';
-// import reset from './reset';
 import theme from './theme';
 
 const { colors, fontWeight } = theme;

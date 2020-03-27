@@ -1,8 +1,9 @@
 import React from 'react';
 import Radium from 'radium';
 import Link from 'next/link';
-import { GlobalStyles, ResetStyles, theme, layout } from '../styles';
+import { theme, layout } from '../styles';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import HeroBackground from '../assets/images/hero.jpg';
 import api from '../api';
 import moment from 'moment';
@@ -91,7 +92,12 @@ const posts = {
 
 const tags = {
 	self: {
-		width: '30%'
+		width: '30%',
+		position: 'relative' as 'relative'
+	},
+	wrapper: {
+		position: 'sticky' as 'sticky',
+		top: 150
 	},
 	title: {
 		fontSize: 22,
@@ -165,7 +171,7 @@ const mapMonth = function(posts) {
 const getBlogPosts = async () => {
 	const result = await blog.getPosts({ pageSize: 99999 });
 	const _posts = result.data.map((post: IPost) => {
-		post.month = moment(post.createdAt).format('YYYY年MM月');
+		post.month = moment(post.createdAt).format('YYYY年M月');
 		return post;
 	});
 
@@ -192,8 +198,6 @@ class Index extends React.Component<IProps> {
 	render() {
 		return (
 			<React.Fragment>
-				<ResetStyles />
-				<GlobalStyles />
 				<Header></Header>
 				<div style={jumbotron.self}>
 					<div style={jumbotron.cover}></div>
@@ -225,19 +229,22 @@ class Index extends React.Component<IProps> {
 							);
 						})}
 					</ul>
-					<ul style={tags.self}>
-						<h3 style={tags.title}>分类查询</h3>
-						{this.props.tags.map((tag: ITag) => {
-							return (
-								<li key={tag.type} style={tags.tagWrapper}>
-									<span key={tag.name} style={tags.tag}>
-										{tag.name}
-									</span>
-								</li>
-							);
-						})}
-					</ul>
+					<div style={tags.self}>
+						<ul style={tags.wrapper}>
+							<h3 style={tags.title}>分类查询</h3>
+							{this.props.tags.map((tag: ITag) => {
+								return (
+									<li key={tag.type} style={tags.tagWrapper}>
+										<span key={tag.name} style={tags.tag}>
+											{tag.name}
+										</span>
+									</li>
+								);
+							})}
+						</ul>
+					</div>
 				</div>
+				<Footer />
 			</React.Fragment>
 		);
 	}
