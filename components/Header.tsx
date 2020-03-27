@@ -112,7 +112,6 @@ class Header extends React.Component<{}, IState> {
 					<div style={header.logoWrapper}>
 						<h1 style={header.logoTitle}>Jiajun Yan</h1>
 					</div>
-
 					<ul style={header.list}>
 						<li style={header.listItem}>
 							<Link

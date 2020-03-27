@@ -1,6 +1,8 @@
 import React from 'react';
 import Radium from 'radium';
 import Link from 'next/link';
+import Router from 'next/router';
+import { NextPageContext } from 'next';
 import { theme, layout } from '../styles';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -54,13 +56,24 @@ const jumbotron = {
 
 const content = {
 	self: {
+		padding: '200px 0',
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
-		padding: '200px 0',
-		display: 'flex',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			padding: '60px 0'
 		}
+	},
+	tagTitle: {
+		fontSize: 30,
+		paddingBottom: 40,
+		color: colors.gray,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 20,
+			paddingBottom: 20
+		}
+	},
+	wrapper: {
+		display: 'flex'
 	}
 };
 
@@ -163,6 +176,8 @@ const tags = {
 interface IProps {
 	posts: [];
 	tags: [];
+	type: number;
+	tag: ITag;
 }
 
 interface IMonthData {
@@ -185,7 +200,7 @@ interface ITag {
 }
 
 // 将文章列表按月分类
-const mapMonth = function(posts) {
+const mapMonth = function(posts: []) {
 	let newPosts = [];
 	posts.forEach((post: IPost) => {
 		let index = -1;
@@ -207,8 +222,10 @@ const mapMonth = function(posts) {
 	return newPosts;
 };
 
-const getBlogPosts = async () => {
-	const result = await blog.getPosts({ pageSize: 99999 });
+const getBlogPosts = async ({ type }) => {
+	if (isNaN(type)) return [];
+	const params = +type !== -1 ? { pageSize: 99999, type } : { pageSize: 99999 };
+	const result = await blog.getPosts(params);
 	const _posts = result.data.map((post: IPost) => {
 		post.month = moment(post.createdAt).format('YYYY年M月');
 		return post;
@@ -220,21 +237,43 @@ const getBlogPosts = async () => {
 
 const getBlogTags = async () => {
 	const result = await blog.getTags();
+	result.data.unshift({ name: '全部', type: -1 });
 	const tags = result.data;
 	return tags;
+};
+
+const getBlogTag = (tags: [{}], type: any) => {
+	const result = tags.filter((tag: ITag) => tag.type === +type);
+	if (result.length) {
+		return result[0];
+	}
+
+	return tags[0];
 };
 
 class Index extends React.Component<IProps> {
 	constructor(props: any) {
 		super(props);
 	}
-	static async getInitialProps() {
-		const posts = await getBlogPosts();
-		const tags = await getBlogTags();
+	static async getInitialProps(context: NextPageContext) {
+		const { type = -1 } = context.query;
 
-		return { posts, tags };
+		const posts = await getBlogPosts({ type });
+		const tags = await getBlogTags();
+		const tag = getBlogTag(tags, type);
+
+		return { posts, tags, type, tag };
+	}
+	getBlogPostsWithTag(type: number) {
+		Router.push({ pathname: '/', query: { type } }); // 通过重定向本页面，刷新数据
+		window.scrollTo(0, 440);
 	}
 	render() {
+		let { type, tag } = this.props;
+		console.log(tag);
+		const highlightTag = JSON.parse(JSON.stringify(tags.tag));
+		highlightTag.color = type ? colors.white : colors.gray;
+
 		return (
 			<React.Fragment>
 				<Header></Header>
@@ -244,43 +283,56 @@ class Index extends React.Component<IProps> {
 						<h2 style={jumbotron.title}>Jiajun Yan</h2>
 					</div>
 				</div>
+
 				<div style={content.self}>
-					<ul style={posts.self}>
-						{this.props.posts.map((monthData: IMonthData, index) => {
-							return (
-								<li
-									style={index === 0 ? posts.dataFirstChild : posts.data}
-									key={monthData.month}
-								>
-									<span style={posts.month}>{monthData.month}</span>
-									{monthData.data.map((post: IPost) => {
-										return (
-											<Link href="/" key={post.id}>
-												<a style={posts.titleWrapper}>
-													<span style={posts.title} key={post.id}>
-														{post.title}
-													</span>
-												</a>
-											</Link>
-										);
-									})}
-								</li>
-							);
-						})}
-					</ul>
-					<div style={tags.self}>
-						<ul style={tags.wrapper}>
-							<h3 style={tags.title}>分类查询</h3>
-							{this.props.tags.map((tag: ITag) => {
+					{tag.type !== -1 ? (
+						<h2 style={content.tagTitle}>正在检索 {tag.name} 下的文章</h2>
+					) : (
+						''
+					)}
+					<div style={content.wrapper}>
+						<ul style={posts.self}>
+							{!this.props.posts.length ? <h2 style={content.tagTitle}>暂无结果</h2> : ''}
+							{this.props.posts.map((monthData: IMonthData, index) => {
 								return (
-									<li key={tag.type} style={tags.tagWrapper}>
-										<span key={tag.name} style={tags.tag}>
-											{tag.name}
-										</span>
+									<li
+										style={index === 0 ? posts.dataFirstChild : posts.data}
+										key={monthData.month}
+									>
+										<span style={posts.month}>{monthData.month}</span>
+										{monthData.data.map((post: IPost) => {
+											return (
+												<Link href="/" key={post.id}>
+													<a style={posts.titleWrapper}>
+														<span style={posts.title} key={post.id}>
+															{post.title}
+														</span>
+													</a>
+												</Link>
+											);
+										})}
 									</li>
 								);
 							})}
 						</ul>
+						<div style={tags.self}>
+							<ul style={tags.wrapper}>
+								<h3 style={tags.title}>分类查询</h3>
+								{this.props.tags.map((tag: ITag) => {
+									return (
+										<li key={tag.type} style={tags.tagWrapper}>
+											<span
+												key={tag.name}
+												style={tag.type === +type ? highlightTag : tags.tag}
+												onClick={() => this.getBlogPostsWithTag(tag.type)}
+											>
+												{tag.name}
+											</span>
+										</li>
+									);
+								})}
+							</ul>
+						</div>
 					</div>
 				</div>
 				<Footer />
