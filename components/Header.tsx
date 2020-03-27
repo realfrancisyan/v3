@@ -4,10 +4,11 @@ import Head from 'next/head';
 import Radium from 'radium';
 import { theme, layout } from '../styles';
 
-const { colors } = theme;
+const { colors, fontWeight } = theme;
 
 const gradient =
 	'linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.2) 100%)';
+const boxShadow = '0 1px 10px 5px rgba(0,0,0,0.1)';
 
 const header = {
 	self: {
@@ -21,7 +22,9 @@ const header = {
 		display: 'flex',
 		flexDirection: 'column' as 'column',
 		justifyContent: 'center',
-		background: gradient
+		background: gradient,
+		transition: 'all .2s',
+		boxShadow: 'none'
 	},
 	wrapper: {
 		display: 'flex',
@@ -34,15 +37,13 @@ const header = {
 		display: 'flex',
 		alignItems: 'center'
 	},
-	logo: {
-		width: 15,
-		height: 15,
-		backgroundColor: colors.white,
-		borderRadius: '50%'
-	},
 	logoTitle: {
 		fontSize: 20,
-		marginLeft: 10
+		marginLeft: 10,
+		fontWeight: fontWeight.ultra,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 16
+		}
 	},
 	list: {
 		display: 'flex'
@@ -83,26 +84,27 @@ class Header extends React.Component<{}, IState> {
 			window.pageYOffset ||
 			document.documentElement.scrollTop ||
 			document.body.scrollTop;
-		this.setState({ backgroundSwitch: scrollTop > 300 });
+		this.setState({ backgroundSwitch: scrollTop > 250 });
 	}
 	render() {
 		const { title, backgroundSwitch } = this.state;
 		const headerSelf = header.self;
 		headerSelf.background = backgroundSwitch ? colors.lightGray : gradient;
+		headerSelf.boxShadow = backgroundSwitch ? boxShadow : 'none';
 		return (
 			<header style={headerSelf}>
 				<Head>
 					<title>{title}</title>
 					<meta
 						name="viewport"
-						content="initial-scale=1.0, width=device-width"
+						content="initial-scale=1,maximum-scale=1, minimum-scale=1"
 					/>
 				</Head>
 				<div style={header.wrapper}>
 					<div style={header.logoWrapper}>
-						<div style={header.logo} />
 						<h1 style={header.logoTitle}>Jiajun Yan</h1>
 					</div>
+
 					<ul style={header.list}>
 						<li style={header.listItem}>
 							<Link
