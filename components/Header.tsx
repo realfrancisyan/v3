@@ -77,7 +77,7 @@ class Header extends React.Component<{}, IState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			title: 'Jiajun Yan',
+			title: props.title ? `${props.title} - Jiajun Yan` : 'Jiajun Yan',
 			backgroundSwitch: false
 		};
 
