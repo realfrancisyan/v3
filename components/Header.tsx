@@ -31,7 +31,10 @@ const header = {
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		...layout.contentSize.desktop,
-		...layout.alignCenter
+		...layout.alignCenter,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile
+		}
 	},
 	logoWrapper: {
 		display: 'flex',
@@ -39,7 +42,6 @@ const header = {
 	},
 	logoTitle: {
 		fontSize: 20,
-		marginLeft: 10,
 		fontWeight: fontWeight.ultra,
 		color: colors.white,
 		textDecoration: 'none',

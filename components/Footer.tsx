@@ -12,7 +12,10 @@ const footer = {
 	self: {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
-		padding: '40px 0'
+		padding: '40px 0',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile
+		}
 	},
 	titleWrapper: {
 		display: 'flex',

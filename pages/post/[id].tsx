@@ -18,12 +18,21 @@ const jumbotron = {
 	cover: {
 		padding: '200px 0',
 		width: '60%',
-		...layout.alignCenter
+		...layout.alignCenter,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile,
+			padding: '100px 0'
+		}
 	},
 	title: {
 		fontSize: 100,
 		lineHeight: '120px',
-		fontWeight: fontWeight.extraBold
+		fontWeight: fontWeight.extraBold,
+		wordBreak: 'break-word' as 'break-word',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 54,
+			lineHeight: '59px'
+		}
 	},
 	name: {
 		color: colors.purple
@@ -31,7 +40,11 @@ const jumbotron = {
 	date: {
 		display: 'block',
 		fontSize: 26,
-		paddingTop: 30
+		paddingTop: 30,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 16,
+			lineHeight: '23px'
+		}
 	}
 };
 
@@ -39,7 +52,11 @@ const content = {
 	self: {
 		width: '60%',
 		...layout.alignCenter,
-		padding: '200px 0'
+		padding: '200px 0',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile,
+			padding: '100px 0'
+		}
 	}
 };
 
@@ -236,6 +253,62 @@ class Post extends React.Component<IProps> {
 						border-radius: 50%;
 						background: #222;
 						box-shadow: 24px 0 0 0 #222, -24px 0 0 0 #222;
+					}
+					@media screen and (max-width: ${layout.screen.mobile}px) {
+						article h1 {
+							font-size: 32px;
+							line-height: 46px;
+							padding: 30px 0;
+						}
+						article h2 {
+							font-size: 28px;
+							line-height: 40px;
+							padding: 30px 0;
+						}
+						article h3 {
+							font-size: 24px;
+							line-height: 32px;
+							padding: 30px 0;
+						}
+						article h4 {
+							font-size: 22px;
+							line-height: 26px;
+							padding: 30px 0;
+						}
+						article h5 {
+							font-size: 20px;
+							line-height: 24px;
+							padding: 30px 0;
+						}
+						article h6 {
+							font-size: 20px;
+							line-height: 28px;
+							padding: 30px 0;
+						}
+						article ul,
+						article ol {
+							padding: 15px 0 30px;
+						}
+						article ul li,
+						article ol li {
+							font-size: 19px;
+							line-height: 28px;
+							margin: 0 20px;
+						}
+						article p {
+							font-size: 19px;
+							line-height: 28px;
+							padding-bottom: 10px;
+						}
+						article p strong {
+							padding-bottom: 10px;
+						}
+						article p img {
+							width: 100%;
+						}
+                        article pre {
+                            margin-bottom: 20px !important;
+                        }
 					}
 				`}</style>
 			</React.Fragment>

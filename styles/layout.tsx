@@ -10,7 +10,7 @@ const layout = {
 			width: '90%'
 		},
 		mobile: {
-			width: 'calc(100vw - 30px)'
+			width: 'calc(100vw - 40px)'
 		}
 	},
 	alignCenter: {
