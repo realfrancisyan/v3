@@ -5,7 +5,6 @@ import Router from 'next/router';
 import { NextPageContext } from 'next';
 import { theme, layout } from '../styles';
 import Header from '../components/Header';
-import HeroBackground from '../assets/images/hero.jpg';
 import api from '../api';
 import moment from 'moment';
 
@@ -17,7 +16,7 @@ const jumbotron = {
 		width: '100%',
 		height: 500,
 		backgroundColor: colors.gray,
-		backgroundImage: `url(${HeroBackground})`,
+		backgroundImage: `url(https://assets.auracloudapp.com/img/hero.jpg)`,
 		backgroundSize: 'cover',
 		display: 'flex',
 		position: 'relative' as 'relative',

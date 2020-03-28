@@ -88,6 +88,10 @@ class Header extends React.Component<{}, IState> {
 	componentDidMount() {
 		window.addEventListener('scroll', this.onScroll);
 	}
+	componentWillUnmount() {
+		// 移除函数节流
+		window.removeEventListener('scroll', this.onScroll);
+	}
 	// 根据滚动位置，更改导航栏背景
 	onScroll() {
 		const scrollTop =
