@@ -2,6 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import BeiAnIcon from '../assets/images/beian.png';
 import { layout, theme } from '../styles';
 
@@ -69,41 +70,38 @@ const footer = {
 	}
 };
 
-class Footer extends React.Component {
-	static async getInitialProps(context) {
-		console.log(123);
-		return {}
+const Footer = () => {
+	const pageToShrink = ['/post/[id]']; // 需要将 footer 的宽度缩小的页面
+	const router = useRouter();
+	const footerStyle = JSON.parse(JSON.stringify(footer));
+	if (pageToShrink.includes(router.pathname)) {
+		footerStyle.self.width = '60%';
 	}
-	render() {
-		const footerStyle = JSON.parse(JSON.stringify(footer));
-		// console.log(this.props);
-		// footerStyle.self.width = this.props['url'].;
-		return (
-			<footer style={footer.self}>
-				<div style={footer.titleWrapper}>
-					<h2 style={footer.title}>Jiajun Yan</h2>
-					<p style={footer.copyright}>
-						© 2017-{moment().format('YYYY')} Jiajun Yan. All rights reserved.
-					</p>
-				</div>
-				<ul>
-					<li style={footer.links}>
-						<Link href="http://www.beian.miit.gov.cn/" prefetch={false}>
-							<a style={footer.anchor} target="_blank" key="beian1">
-								<span>粤 ICP 备 19153485 号</span>
-							</a>
-						</Link>
-						<Link href="http://www.beian.gov.cn" prefetch={false}>
-							<a style={footer.anchor} target="_blank" key="beian2">
-								<img style={footer.icon} src={BeiAnIcon} alt="bei an" />
-								<span>粤公网安备 44010502001478 号</span>
-							</a>
-						</Link>
-					</li>
-				</ul>
-			</footer>
-		);
-	}
-}
+	return (
+		<footer style={footerStyle.self}>
+			<div style={footer.titleWrapper}>
+				<h2 style={footer.title}>Jiajun Yan</h2>
+				<p style={footer.copyright}>
+					© 2017-{moment().format('YYYY')} Jiajun Yan. All rights reserved.
+				</p>
+			</div>
+			<ul>
+				<li style={footer.links}>
+					<Link href="http://www.beian.miit.gov.cn/" prefetch={false}>
+						<a style={footer.anchor} target="_blank" key="beian1">
+							<span>粤 ICP 备 19153485 号</span>
+						</a>
+					</Link>
+					<Link href="http://www.beian.gov.cn" prefetch={false}>
+						<a style={footer.anchor} target="_blank" key="beian2">
+							<img style={footer.icon} src={BeiAnIcon} alt="bei an" />
+							<span>粤公网安备 44010502001478 号</span>
+						</a>
+					</Link>
+				</li>
+			</ul>
+		</footer>
+	);
+};
 
 export default Radium(Footer);
