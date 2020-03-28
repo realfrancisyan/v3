@@ -1,7 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import { NextPageContext } from 'next';
 import { theme, layout } from '../../styles';
 import blog from '../../api/blog';
@@ -70,9 +69,10 @@ class Post extends React.Component<IProps> {
 	}
 	render() {
 		const { post } = this.props;
+		const childProps = { title: post.title }; // 传入 title 给 head 组件
 		return (
 			<React.Fragment>
-				<Header />
+				<Header {...childProps} />
 				<div style={jumbotron.self}>
 					<div style={jumbotron.cover}>
 						<h2 style={jumbotron.title}>{post.title}</h2>
@@ -213,7 +213,7 @@ class Post extends React.Component<IProps> {
 						margin-bottom: 40px;
 					}
 					article a {
-                        color: #f6eef4;
+						color: #f6eef4;
 					}
 					article blockquote p {
 						padding-bottom: 0;
@@ -238,8 +238,6 @@ class Post extends React.Component<IProps> {
 						box-shadow: 24px 0 0 0 #222, -24px 0 0 0 #222;
 					}
 				`}</style>
-                
-				<Footer />
 			</React.Fragment>
 		);
 	}

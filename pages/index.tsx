@@ -5,7 +5,6 @@ import Router from 'next/router';
 import { NextPageContext } from 'next';
 import { theme, layout } from '../styles';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import HeroBackground from '../assets/images/hero.jpg';
 import api from '../api';
 import moment from 'moment';
@@ -335,7 +334,6 @@ class Index extends React.Component<IProps> {
 						</div>
 					</div>
 				</div>
-				<Footer />
 			</React.Fragment>
 		);
 	}
