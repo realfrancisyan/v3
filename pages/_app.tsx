@@ -1,14 +1,14 @@
 import { AppProps } from 'next/app';
 import Radium from 'radium';
-import { ResetStyles, GlobalStyles } from '../styles';
+import { GlobalStyles } from '../styles';
 import Footer from '../components/Footer';
+import '../assets/css/reset.css';
 
 const { StyleRoot } = Radium;
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<StyleRoot>
-			<ResetStyles />
 			<GlobalStyles />
 			<Component {...pageProps} />
 			<Footer />

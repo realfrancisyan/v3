@@ -268,7 +268,6 @@ class Index extends React.Component<IProps> {
 	}
 	render() {
 		let { type, tag } = this.props;
-		console.log(tag);
 		const highlightTag = JSON.parse(JSON.stringify(tags.tag));
 		highlightTag.color = type ? colors.white : colors.gray;
 
