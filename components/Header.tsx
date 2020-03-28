@@ -120,7 +120,7 @@ class Header extends React.Component<{}, IState> {
 				<div style={header.wrapper}>
 					<div style={header.logoWrapper}>
 						<h1>
-							<Link href="/" prefetch={false}>
+							<Link href="/">
 								<a style={header.logoTitle}>Jiajun Yan</a>
 							</Link>
 						</h1>

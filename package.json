@@ -4,9 +4,9 @@
   "description": "v3 iteration of jiajunyan.com",
   "main": "index.js",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 9999",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p 9999"
   },
   "repository": {
     "type": "git",

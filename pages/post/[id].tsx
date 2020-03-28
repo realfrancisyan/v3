@@ -34,6 +34,19 @@ const jumbotron = {
 			lineHeight: '59px'
 		}
 	},
+	description: {
+		width: '90%',
+		fontSize: 25,
+		lineHeight: '36px',
+		color: colors.gray,
+		padding: '20px 0',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			width: '100%',
+			fontSize: 21,
+			lineHeight: '26px',
+			padding: '10px 0'
+		}
+	},
 	name: {
 		color: colors.purple
 	},
@@ -93,7 +106,7 @@ class Post extends React.Component<IProps> {
 				<div style={jumbotron.self}>
 					<div style={jumbotron.cover}>
 						<h2 style={jumbotron.title}>{post.title}</h2>
-						<p></p>
+						<p style={jumbotron.description}>{post.description}</p>
 						<span style={jumbotron.date}>
 							由 <span style={jumbotron.name}>Jiajun Yan</span> 于
 							{moment(post.createdAt).format('YYYY年M月DD日')}
@@ -306,9 +319,9 @@ class Post extends React.Component<IProps> {
 						article p img {
 							width: 100%;
 						}
-                        article pre {
-                            margin-bottom: 20px !important;
-                        }
+						article pre {
+							margin-bottom: 20px !important;
+						}
 					}
 				`}</style>
 			</React.Fragment>

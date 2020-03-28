@@ -132,6 +132,18 @@ const posts = {
 			fontSize: 35,
 			lineHeight: '44px'
 		}
+	},
+	description: {
+		display: 'block',
+		fontSize: 22,
+		lineHeight: '28px',
+		color: colors.semiGray,
+		paddingBottom: 20,
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			fontSize: 16,
+			lineHeight: '22px',
+			paddingBottom: 10
+		}
 	}
 };
 
@@ -185,6 +197,7 @@ interface IMonthData {
 
 interface IPost {
 	title: string;
+	description?: string;
 	type: number;
 	createdAt: string;
 	id: string;
@@ -289,7 +302,11 @@ class Index extends React.Component<IProps> {
 					)}
 					<div style={content.wrapper}>
 						<ul style={posts.self}>
-							{!this.props.posts.length ? <h2 style={content.tagTitle}>暂无结果</h2> : ''}
+							{!this.props.posts.length ? (
+								<h2 style={content.tagTitle}>暂无结果</h2>
+							) : (
+								''
+							)}
 							{this.props.posts.map((monthData: IMonthData, index) => {
 								return (
 									<li
@@ -299,13 +316,22 @@ class Index extends React.Component<IProps> {
 										<span style={posts.month}>{monthData.month}</span>
 										{monthData.data.map((post: IPost) => {
 											return (
-												<Link href={`/post/${post.id}`} key={post.id}>
-													<a style={posts.titleWrapper}>
-														<span style={posts.title} key={post.id}>
-															{post.title}
+												<React.Fragment key={post.id}>
+													<Link href={`/post/${post.id}`}>
+														<a style={posts.titleWrapper}>
+															<span style={posts.title} key={post.id}>
+																{post.title}
+															</span>
+														</a>
+													</Link>
+													{post.description ? (
+														<span style={posts.description}>
+															{post.description}
 														</span>
-													</a>
-												</Link>
+													) : (
+														''
+													)}
+												</React.Fragment>
 											);
 										})}
 									</li>
