@@ -317,7 +317,11 @@ class Index extends React.Component<IProps> {
 										{monthData.data.map((post: IPost) => {
 											return (
 												<React.Fragment key={post.id}>
-													<Link href={`/post/${post.id}`}>
+													<Link
+														href="/post/[id]"
+														as={`/post/${post.id}`}
+														prefetch={false}
+													>
 														<a style={posts.titleWrapper}>
 															<span style={posts.title} key={post.id}>
 																{post.title}

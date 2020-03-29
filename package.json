@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next -p 9999",
     "build": "next build",
-    "start": "next start -p 9999"
+    "start": "next start -p 9999",
+    "prod": "NODE_ENV=production pm2 start npm --name 'next-blog' -- start",
+    "stop": "pm2 stop next-blog"
   },
   "repository": {
     "type": "git",
