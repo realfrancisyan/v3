@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import Radium from 'radium';
 import { GlobalStyles } from '../styles';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import '../assets/css/reset.css';
 
 const { StyleRoot } = Radium;
@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 		<StyleRoot>
 			<GlobalStyles />
 			<Component {...pageProps} />
-			<Footer />
+			{/* <Footer /> */}
 		</StyleRoot>
 	);
 }

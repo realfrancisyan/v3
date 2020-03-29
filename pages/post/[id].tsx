@@ -7,6 +7,7 @@ import blog from '../../api/blog';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../../components/CodeBlock';
+import Footer from '../../components/Footer';
 
 const { colors, fontWeight } = theme;
 
@@ -324,6 +325,7 @@ class Post extends React.Component<IProps> {
 						}
 					}
 				`}</style>
+				<Footer />
 			</React.Fragment>
 		);
 	}

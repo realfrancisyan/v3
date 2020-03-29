@@ -7,6 +7,7 @@ import { theme, layout } from '../styles';
 import Header from '../components/Header';
 import api from '../api';
 import moment from 'moment';
+import Footer from '../components/Footer';
 
 const { blog } = api;
 const { colors, fontWeight } = theme;
@@ -362,6 +363,7 @@ class Index extends React.Component<IProps> {
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</React.Fragment>
 		);
 	}
