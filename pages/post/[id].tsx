@@ -79,6 +79,33 @@ const getSingleBlogPost = async (id: string | string[]) => {
 	return post.data;
 };
 
+const LinkComponent = (props: any) => {
+	return (
+		<a href={props.href} target="_blank" rel="noopener noreferrer">
+			{props.children[0].props.value}
+		</a>
+	);
+};
+
+const ImageComponent = (props: any) => {
+	const image = {
+		src: props.src.replace(
+			'auracloudapp.oss-cn-shenzhen.aliyuncs.com',
+			'assets.auracloudapp.com'
+		)
+	};
+	return (
+		<a
+			href={image.src}
+			target="_blank"
+			rel="noopener noreferrer"
+			style={{ outline: 'none' }}
+		>
+			<img className="post-img" src={image.src} alt={props.title} />
+		</a>
+	);
+};
+
 interface IProps {
 	post: IPost;
 }
@@ -120,39 +147,8 @@ class Post extends React.Component<IProps> {
 						source={post.body}
 						renderers={{
 							code: CodeBlock,
-							link: props => {
-								return (
-									<a
-										href={props.href}
-										target="_blank"
-										rel="noopener noreferrer"
-									>
-										{props.children[0].props.value}
-									</a>
-								);
-							},
-							image: props => {
-								const image = {
-									src: props.src.replace(
-										'auracloudapp.oss-cn-shenzhen.aliyuncs.com',
-										'assets.auracloudapp.com'
-									)
-								};
-								return (
-									<a
-										href={image.src}
-										target="_blank"
-										rel="noopener noreferrer"
-										style={{ outline: 'none' }}
-									>
-										<img
-											className="post-img"
-											src={image.src}
-											alt={props.title}
-										/>
-									</a>
-								);
-							}
+							link: LinkComponent,
+							image: ImageComponent
 						}}
 					></ReactMarkdown>
 				</article>
