@@ -5,7 +5,7 @@ import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 interface IProps {
 	language: string;
-	value: any;
+	value: string;
 }
 
 class CodeBlock extends PureComponent<IProps> {
