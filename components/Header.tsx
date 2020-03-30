@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import Radium from 'radium';
 import { theme, layout } from '../styles';
+import { IProps } from '../interfaces/header.interface';
 
 const { colors, fontWeight } = theme;
 
@@ -69,11 +70,6 @@ const header = {
 		}
 	}
 };
-
-interface IProps {
-	title?: string;
-	backgroundSwitch?: boolean;
-}
 
 const Header = (props: IProps) => {
 	const [title, setTitle] = useState('Jiajun Yan');
