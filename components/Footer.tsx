@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Radium from 'radium';
 import moment from 'moment';
 import Link from 'next/link';
@@ -76,28 +76,31 @@ const footer = {
 const Footer = () => {
 	const pageToShrink = ['/post/[id]']; // 需要将 footer 的宽度缩小的页面
 	const router = useRouter();
-	const footerStyle = JSON.parse(JSON.stringify(footer));
-	if (pageToShrink.includes(router.pathname)) {
-		footerStyle.self.width = '60%';
-	}
+	const [footerStyle, setFooterStyle] = useState(footer);
+	useEffect(() => {
+		if (pageToShrink.includes(router.pathname)) {
+			footerStyle.self.width = '60%';
+			setFooterStyle(footerStyle);
+		}
+	});
 	return (
 		<footer style={footerStyle.self}>
-			<div style={footer.titleWrapper}>
-				<h2 style={footer.title}>Jiajun Yan</h2>
-				<p style={footer.copyright}>
+			<div style={footerStyle.titleWrapper}>
+				<h2 style={footerStyle.title}>Jiajun Yan</h2>
+				<p style={footerStyle.copyright}>
 					© 2017-{moment().format('YYYY')} Jiajun Yan. All rights reserved.
 				</p>
 			</div>
 			<ul>
-				<li style={footer.links}>
+				<li style={footerStyle.links}>
 					<Link href="http://www.beian.miit.gov.cn/" prefetch={false}>
-						<a style={footer.anchor} target="_blank" key="beian1">
+						<a style={footerStyle.anchor} target="_blank" key="beian1">
 							<span>粤 ICP 备 19153485 号</span>
 						</a>
 					</Link>
 					<Link href="http://www.beian.gov.cn" prefetch={false}>
-						<a style={footer.anchor} target="_blank" key="beian2">
-							<img style={footer.icon} src={BeiAnIcon} alt="bei an" />
+						<a style={footerStyle.anchor} target="_blank" key="beian2">
+							<img style={footerStyle.icon} src={BeiAnIcon} alt="bei an" />
 							<span>粤公网安备 44010502001478 号</span>
 						</a>
 					</Link>
