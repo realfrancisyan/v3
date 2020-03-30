@@ -91,7 +91,7 @@ const Header = (props: IProps) => {
 		window.addEventListener('scroll', _onScroll);
 
 		// 防止报错
-		return function cleanup() {
+		return () => {
 			window.removeEventListener('scroll', _onScroll);
 		};
 	});
