@@ -3,14 +3,12 @@ import Radium from 'radium';
 import { GlobalStyles } from '../styles';
 import '../assets/css/reset.css';
 
-const { StyleRoot } = Radium;
-
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-		<StyleRoot>
+		<Radium.StyleRoot>
 			<GlobalStyles />
 			<Component {...pageProps} />
-		</StyleRoot>
+		</Radium.StyleRoot>
 	);
 }
 
