@@ -59,7 +59,7 @@ const header = {
 	anchor: {
 		color: colors.white,
 		textDecoration: 'none',
-		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				color: colors.plainWhite
 			}

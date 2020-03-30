@@ -124,7 +124,7 @@ const posts = {
 		color: colors.white,
 		textDecoration: 'none',
 		cursor: 'pointer',
-		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline'
 			}
@@ -175,7 +175,7 @@ const tags = {
 		fontWeight: fontWeight.bold,
 		cursor: 'pointer',
 		color: colors.gray,
-		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline',
 				color: colors.white

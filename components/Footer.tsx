@@ -13,6 +13,9 @@ const footer = {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		padding: '40px 0',
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			width: '80%',
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile
 		}
@@ -57,7 +60,7 @@ const footer = {
 		display: 'flex',
 		alignItems: 'center',
 		color: colors.gray,
-		[`@media screen and (min-width: ${layout.screen.desktop}px)`]: {
+		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline'
 			}
@@ -80,8 +83,8 @@ const Footer = () => {
 	useEffect(() => {
 		if (pageToShrink.includes(router.pathname)) {
 			footerStyle.self.width = '60%';
-			setFooterStyle(footerStyle);
 		}
+		setFooterStyle(footerStyle);
 	});
 	return (
 		<footer style={footerStyle.self}>

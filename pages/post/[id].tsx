@@ -20,6 +20,9 @@ const jumbotron = {
 		padding: '200px 0',
 		width: '60%',
 		...layout.alignCenter,
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			width: '80%',
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
 			padding: '100px 0'
@@ -67,6 +70,9 @@ const content = {
 		width: '60%',
 		...layout.alignCenter,
 		padding: '200px 0',
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			width: '80%',
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
 			padding: '100px 0'

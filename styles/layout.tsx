@@ -1,7 +1,8 @@
 const layout = {
 	// 用于处理移动端的屏幕大小
 	screen: {
-		desktop: 1060,
+		desktop: 1440,
+		laptop: 1439,
 		mobile: 1059
 	},
 	// 内容大小
