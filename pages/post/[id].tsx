@@ -80,7 +80,7 @@ const content = {
 	}
 };
 
-const getSingleBlogPost = async (id: string | string[]) => {
+const getSingleBlogPost = async (id: string | Array<string>) => {
 	const post = await blog.getSinglePost({ id });
 	return post.data;
 };
