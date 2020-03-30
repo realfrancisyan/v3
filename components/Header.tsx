@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import Radium from 'radium';
@@ -70,85 +70,76 @@ const header = {
 	}
 };
 
-interface IState {
-	title: string;
-	backgroundSwitch: boolean;
+interface IProps {
+	title?: string;
+	backgroundSwitch?: boolean;
 }
 
-class Header extends React.Component<{}, IState> {
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			title: props.title ? `${props.title} - Jiajun Yan` : 'Jiajun Yan',
-			backgroundSwitch: false
+const Header = (props: IProps) => {
+	const [title, setTitle] = useState('Jiajun Yan');
+	const [backgroundSwitch, setBackgroundSwitch] = useState(false);
+
+	useEffect(() => {
+		if (props.title) setTitle(`${props.title} - Jiajun Yan`); // 设置页面标题
+		// 添加滚动监听转换背景效果
+		const _onScroll = () => {
+			const scrollTop =
+				window.pageYOffset ||
+				document.documentElement.scrollTop ||
+				document.body.scrollTop;
+
+			const screenWidth = screen.width;
+			const scrollHeight = screenWidth >= 1060 ? 250 : 100; // 区分桌面端和移动端的滑动距离
+			setBackgroundSwitch(scrollTop > scrollHeight);
 		};
+		window.addEventListener('scroll', _onScroll);
 
-		this.onScroll = this.onScroll.bind(this);
-	}
-	componentDidMount() {
-		window.addEventListener('scroll', this.onScroll);
-	}
-	componentWillUnmount() {
-		// 移除函数节流
-		window.removeEventListener('scroll', this.onScroll);
-	}
-	// 根据滚动位置，更改导航栏背景
-	onScroll() {
-		const scrollTop =
-			window.pageYOffset ||
-			document.documentElement.scrollTop ||
-			document.body.scrollTop;
+		// 防止报错
+		return function cleanup() {
+			window.removeEventListener('scroll', _onScroll);
+		};
+	});
 
-		const screenWidth = screen.width;
-		const scrollHeight = screenWidth >= 1060 ? 250 : 100; // 区分桌面端和移动端的滑动距离
-		this.setState({ backgroundSwitch: scrollTop > scrollHeight });
-	}
-	render() {
-		const { title, backgroundSwitch } = this.state;
-		const headerSelf = header.self;
-		headerSelf.background = backgroundSwitch ? colors.lightGray : gradient;
-		headerSelf.boxShadow = backgroundSwitch ? boxShadow : 'none';
-		return (
-			<header style={headerSelf}>
-				<Head>
-					<title>{title}</title>
-					<meta
-						name="viewport"
-						content="initial-scale=1,maximum-scale=1, minimum-scale=1"
-					/>
-					<link rel="stylesheet" type="text/css" href="/nprogress.css" />
-				</Head>
-				<div style={header.wrapper}>
-					<div style={header.logoWrapper}>
-						<h1>
-							<Link href="/">
-								<a style={header.logoTitle}>Jiajun Yan</a>
-							</Link>
-						</h1>
-					</div>
-					<ul style={header.list}>
-						<li style={header.listItem}>
-							<Link
-								href="https://www.linkedin.com/in/yanjiajun"
-								prefetch={false}
-							>
-								<a style={header.anchor} target="_blank" key="LinkedIn">
-									LinkedIn
-								</a>
-							</Link>
-						</li>
-						<li style={header.listItem}>
-							<Link href="https://github.com/realfrancisyan" prefetch={false}>
-								<a style={header.anchor} target="_blank" key="Github">
-									Github
-								</a>
-							</Link>
-						</li>
-					</ul>
+	const headerSelf = header.self;
+	headerSelf.background = backgroundSwitch ? colors.lightGray : gradient;
+	headerSelf.boxShadow = backgroundSwitch ? boxShadow : 'none';
+	return (
+		<header style={headerSelf}>
+			<Head>
+				<title>{title}</title>
+				<meta
+					name="viewport"
+					content="initial-scale=1,maximum-scale=1, minimum-scale=1"
+				/>
+				<link rel="stylesheet" type="text/css" href="/nprogress.css" />
+			</Head>
+			<div style={header.wrapper}>
+				<div style={header.logoWrapper}>
+					<h1>
+						<Link href="/">
+							<a style={header.logoTitle}>Jiajun Yan</a>
+						</Link>
+					</h1>
 				</div>
-			</header>
-		);
-	}
-}
+				<ul style={header.list}>
+					<li style={header.listItem}>
+						<Link href="https://www.linkedin.com/in/yanjiajun" prefetch={false}>
+							<a style={header.anchor} target="_blank" key="LinkedIn">
+								LinkedIn
+							</a>
+						</Link>
+					</li>
+					<li style={header.listItem}>
+						<Link href="https://github.com/realfrancisyan" prefetch={false}>
+							<a style={header.anchor} target="_blank" key="Github">
+								Github
+							</a>
+						</Link>
+					</li>
+				</ul>
+			</div>
+		</header>
+	);
+};
 
 export default Radium(Header);

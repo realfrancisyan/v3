@@ -1,5 +1,3 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
@@ -8,27 +6,13 @@ interface IProps {
 	value: string;
 }
 
-class CodeBlock extends PureComponent<IProps> {
-	static propTypes = {
-		value: PropTypes.string.isRequired,
-		language: PropTypes.string
-	};
-
-	static defaultProps = {
-		language: null
-	};
-
-	render() {
-		const { language, value } = this.props;
-		return (
-			<SyntaxHighlighter
-				language={language}
-				style={atomDark}
-			>
-				{value}
-			</SyntaxHighlighter>
-		);
-	}
-}
+const CodeBlock = (props: IProps) => {
+	const { language = null, value } = props;
+	return (
+		<SyntaxHighlighter language={language} style={atomDark}>
+			{value}
+		</SyntaxHighlighter>
+	);
+};
 
 export default CodeBlock;

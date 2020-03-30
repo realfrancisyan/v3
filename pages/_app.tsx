@@ -12,13 +12,13 @@ Router.events.on('routeChangeStart', url => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-function MyApp({ Component, pageProps }: AppProps) {
+const MyApp = ({ Component, pageProps }: AppProps) => {
 	return (
 		<Radium.StyleRoot>
 			<GlobalStyles />
 			<Component {...pageProps} />
 		</Radium.StyleRoot>
 	);
-}
+};
 
 export default MyApp;

@@ -3,6 +3,7 @@ import Radium from 'radium';
 import Link from 'next/link';
 import Router from 'next/router';
 import { NextPageContext } from 'next';
+import { IProps, IMonthData, ITag, IPost } from '../interfaces/home.interfaces';
 import { theme, layout } from '../styles';
 import Header from '../components/Header';
 import api from '../api';
@@ -184,33 +185,6 @@ const tags = {
 	}
 };
 
-interface IProps {
-	posts: [];
-	tags: [];
-	type: number;
-	tag: ITag;
-}
-
-interface IMonthData {
-	month: string;
-	data: [];
-}
-
-interface IPost {
-	title: string;
-	description?: string;
-	type: number;
-	createdAt: string;
-	id: string;
-	month?: string;
-}
-
-interface ITag {
-	name: string;
-	createdAt: string;
-	type: number;
-}
-
 // 将文章列表按月分类
 const mapMonth = function(posts: []) {
 	let newPosts = [];
@@ -263,110 +237,107 @@ const getBlogTag = (tags: [{}], type: any) => {
 	return tags[0];
 };
 
-class Index extends React.Component<IProps> {
-	constructor(props: any) {
-		super(props);
-	}
-	static async getInitialProps(context: NextPageContext) {
-		const { type = -1 } = context.query;
+const getBlogPostsWithTag = (type: number) => {
+	Router.push({ pathname: '/', query: { type } }); // 通过重定向本页面，刷新数据
+	window.scrollTo(0, 440);
+};
 
-		const posts = await getBlogPosts({ type });
-		const tags = await getBlogTags();
-		const tag = getBlogTag(tags, type);
+const Index = (props: IProps) => {
+	let { type, tag } = props;
+	const highlightTag = JSON.parse(JSON.stringify(tags.tag));
+	highlightTag.color = type ? colors.white : colors.gray;
 
-		return { posts, tags, type, tag };
-	}
-	getBlogPostsWithTag(type: number) {
-		Router.push({ pathname: '/', query: { type } }); // 通过重定向本页面，刷新数据
-		window.scrollTo(0, 440);
-	}
-	render() {
-		let { type, tag } = this.props;
-		const highlightTag = JSON.parse(JSON.stringify(tags.tag));
-		highlightTag.color = type ? colors.white : colors.gray;
-
-		return (
-			<React.Fragment>
-				<Header></Header>
-				<div style={jumbotron.self}>
-					<div style={jumbotron.cover}></div>
-					<div style={jumbotron.titleWrapper}>
-						<h2 style={jumbotron.title}>Jiajun Yan</h2>
-					</div>
+	return (
+		<React.Fragment>
+			<Header></Header>
+			<div style={jumbotron.self}>
+				<div style={jumbotron.cover}></div>
+				<div style={jumbotron.titleWrapper}>
+					<h2 style={jumbotron.title}>Jiajun Yan</h2>
 				</div>
+			</div>
 
-				<div style={content.self}>
-					{tag.type !== -1 ? (
-						<h2 style={content.tagTitle}>正在检索 {tag.name} 下的文章</h2>
-					) : (
-						''
-					)}
-					<div style={content.wrapper}>
-						<ul style={posts.self}>
-							{!this.props.posts.length ? (
-								<h2 style={content.tagTitle}>暂无结果</h2>
-							) : (
-								''
-							)}
-							{this.props.posts.map((monthData: IMonthData, index) => {
-								return (
-									<li
-										style={index === 0 ? posts.dataFirstChild : posts.data}
-										key={monthData.month}
-									>
-										<span style={posts.month}>{monthData.month}</span>
-										{monthData.data.map((post: IPost) => {
-											return (
-												<React.Fragment key={post.id}>
-													<Link
-														href="/post/[id]"
-														as={`/post/${post.id}`}
-														prefetch={false}
-													>
-														<a style={posts.titleWrapper}>
-															<span style={posts.title} key={post.id}>
-																{post.title}
-															</span>
-														</a>
-													</Link>
-													{post.description ? (
-														<span style={posts.description}>
-															{post.description}
+			<div style={content.self}>
+				{tag.type !== -1 ? (
+					<h2 style={content.tagTitle}>正在检索 {tag.name} 下的文章</h2>
+				) : (
+					''
+				)}
+				<div style={content.wrapper}>
+					<ul style={posts.self}>
+						{!props.posts.length ? (
+							<h2 style={content.tagTitle}>暂无结果</h2>
+						) : (
+							''
+						)}
+						{props.posts.map((monthData: IMonthData, index) => {
+							return (
+								<li
+									style={index === 0 ? posts.dataFirstChild : posts.data}
+									key={monthData.month}
+								>
+									<span style={posts.month}>{monthData.month}</span>
+									{monthData.data.map((post: IPost) => {
+										return (
+											<React.Fragment key={post.id}>
+												<Link
+													href="/post/[id]"
+													as={`/post/${post.id}`}
+													prefetch={false}
+												>
+													<a style={posts.titleWrapper}>
+														<span style={posts.title} key={post.id}>
+															{post.title}
 														</span>
-													) : (
-														''
-													)}
-												</React.Fragment>
-											);
-										})}
+													</a>
+												</Link>
+												{post.description ? (
+													<span style={posts.description}>
+														{post.description}
+													</span>
+												) : (
+													''
+												)}
+											</React.Fragment>
+										);
+									})}
+								</li>
+							);
+						})}
+					</ul>
+					<div style={tags.self}>
+						<ul style={tags.wrapper}>
+							<h3 style={tags.title}>分类查询</h3>
+							{props.tags.map((tag: ITag) => {
+								return (
+									<li key={tag.type} style={tags.tagWrapper}>
+										<span
+											key={tag.name}
+											style={tag.type === +type ? highlightTag : tags.tag}
+											onClick={() => getBlogPostsWithTag(tag.type)}
+										>
+											{tag.name}
+										</span>
 									</li>
 								);
 							})}
 						</ul>
-						<div style={tags.self}>
-							<ul style={tags.wrapper}>
-								<h3 style={tags.title}>分类查询</h3>
-								{this.props.tags.map((tag: ITag) => {
-									return (
-										<li key={tag.type} style={tags.tagWrapper}>
-											<span
-												key={tag.name}
-												style={tag.type === +type ? highlightTag : tags.tag}
-												onClick={() => this.getBlogPostsWithTag(tag.type)}
-											>
-												{tag.name}
-											</span>
-										</li>
-									);
-								})}
-							</ul>
-						</div>
 					</div>
 				</div>
-				<Footer />
-			</React.Fragment>
-		);
-	}
-}
+			</div>
+			<Footer />
+		</React.Fragment>
+	);
+};
+
+Index.getInitialProps = async (context: NextPageContext) => {
+	const { type = -1 } = context.query;
+
+	const posts = await getBlogPosts({ type });
+	const tags = await getBlogTags();
+	const tag = getBlogTag(tags, type);
+
+	return { posts, tags, type, tag };
+};
 
 export default Radium(Index);

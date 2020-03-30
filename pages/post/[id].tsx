@@ -2,6 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 import Header from '../../components/Header';
 import { NextPageContext } from 'next';
+import { IProps, IPost } from '../../interfaces/[id].interface';
 import { theme, layout } from '../../styles';
 import blog from '../../api/blog';
 import moment from 'moment';
@@ -21,7 +22,7 @@ const jumbotron = {
 		width: '60%',
 		...layout.alignCenter,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%',
+			width: '80%'
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
@@ -71,7 +72,7 @@ const content = {
 		...layout.alignCenter,
 		padding: '200px 0',
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%',
+			width: '80%'
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
@@ -112,225 +113,211 @@ const ImageComponent = (props: any) => {
 	);
 };
 
-interface IProps {
-	post: IPost;
-}
-
-interface IPost {
-	id: string;
-	title: string;
-	body: string;
-	createdAt: string;
-	type: number;
-	description?: string;
-}
-
-class Post extends React.Component<IProps> {
-	static async getInitialProps(context: NextPageContext) {
-		const { id } = context.query;
-		const post = await getSingleBlogPost(id);
-		return { post };
-	}
-	render() {
-		const { post } = this.props;
-		const childProps = { title: post.title }; // 传入 title 给 head 组件
-		return (
-			<React.Fragment>
-				<Header {...childProps} />
-				<div style={jumbotron.self}>
-					<div style={jumbotron.cover}>
-						<h2 style={jumbotron.title}>{post.title}</h2>
-						<p style={jumbotron.description}>{post.description}</p>
-						<span style={jumbotron.date}>
-							由 <span style={jumbotron.name}>Jiajun Yan</span> 于
-							{moment(post.createdAt).format('YYYY年M月DD日')}
-							编写
-						</span>
-					</div>
+const Post = (props: IProps) => {
+	const { post } = props;
+	const childProps = { title: post.title }; // 传入 title 给 head 组件
+	return (
+		<React.Fragment>
+			<Header {...childProps} />
+			<div style={jumbotron.self}>
+				<div style={jumbotron.cover}>
+					<h2 style={jumbotron.title}>{post.title}</h2>
+					<p style={jumbotron.description}>{post.description}</p>
+					<span style={jumbotron.date}>
+						由 <span style={jumbotron.name}>Jiajun Yan</span> 于
+						{moment(post.createdAt).format('YYYY年M月DD日')}
+						编写
+					</span>
 				</div>
-				<article style={content.self} className="markdown">
-					<ReactMarkdown
-						source={post.body}
-						renderers={{
-							code: CodeBlock,
-							link: LinkComponent,
-							image: ImageComponent
-						}}
-					></ReactMarkdown>
-				</article>
-				<style jsx global>{`
+			</div>
+			<article style={content.self} className="markdown">
+				<ReactMarkdown
+					source={post.body}
+					renderers={{
+						code: CodeBlock,
+						link: LinkComponent,
+						image: ImageComponent
+					}}
+				></ReactMarkdown>
+			</article>
+			<style jsx global>{`
+				article h1 {
+					font-size: 46px;
+					line-height: 72px;
+					padding: 40px 0;
+				}
+				article h2 {
+					font-size: 36px;
+					line-height: 48px;
+					padding: 40px 0;
+				}
+				article h3 {
+					font-size: 32px;
+					line-height: 42px;
+					padding: 40px 0;
+				}
+				article h4 {
+					font-size: 28px;
+					line-height: 32px;
+					padding: 40px 0;
+				}
+				article h5 {
+					font-size: 24px;
+					line-height: 32px;
+					padding: 40px 0;
+				}
+				article h6 {
+					font-size: 20px;
+					line-height: 28px;
+					padding: 40px 0;
+				}
+				article h1:first-child {
+					padding-top: 0;
+				}
+				article h2:first-child {
+					padding-top: 0;
+				}
+				article h3:first-child {
+					padding-top: 0;
+				}
+				article h4:first-child {
+					padding-top: 0;
+				}
+				article h5:first-child {
+					padding-top: 0;
+				}
+				article h6:first-child {
+					padding-top: 0;
+				}
+				article ul,
+				article ol {
+					padding: 20px 0 40px;
+				}
+				article ol li {
+					list-style-type: decimal;
+				}
+				article ul li {
+					list-style-type: circle;
+				}
+				article ul li,
+				article ol li {
+					font-size: 22px;
+					line-height: 32px;
+					padding: 5px 0;
+				}
+				article p {
+					font-size: 22px;
+					line-height: 32px;
+					padding-bottom: 20px;
+				}
+				article p strong {
+					font-weight: 600;
+					padding-bottom: 20px;
+				}
+				article p img {
+					display: block;
+					width: 80%;
+					margin: 20px auto;
+				}
+				article p code {
+					color: #db70a9;
+				}
+				article blockquote {
+					border-left: 2px solid #fd0fb0;
+					padding-left: 20px;
+					margin-bottom: 40px;
+				}
+				article a {
+					color: #f6eef4;
+				}
+				article blockquote p {
+					padding-bottom: 0;
+				}
+				article pre {
+					margin-bottom: 40px !important;
+				}
+				article pre code {
+					font-size: 16px;
+				}
+				article hr {
+					border: 0;
+				}
+				article hr::before {
+					display: block;
+					content: '';
+					width: 3px;
+					height: 3px;
+					margin: 2em auto;
+					border-radius: 50%;
+					background: #222;
+					box-shadow: 24px 0 0 0 #222, -24px 0 0 0 #222;
+				}
+				@media screen and (max-width: ${layout.screen.mobile}px) {
 					article h1 {
-						font-size: 46px;
-						line-height: 72px;
-						padding: 40px 0;
+						font-size: 32px;
+						line-height: 46px;
+						padding: 30px 0;
 					}
 					article h2 {
-						font-size: 36px;
-						line-height: 48px;
-						padding: 40px 0;
+						font-size: 28px;
+						line-height: 40px;
+						padding: 30px 0;
 					}
 					article h3 {
-						font-size: 32px;
-						line-height: 42px;
-						padding: 40px 0;
-					}
-					article h4 {
-						font-size: 28px;
-						line-height: 32px;
-						padding: 40px 0;
-					}
-					article h5 {
 						font-size: 24px;
 						line-height: 32px;
-						padding: 40px 0;
+						padding: 30px 0;
+					}
+					article h4 {
+						font-size: 22px;
+						line-height: 26px;
+						padding: 30px 0;
+					}
+					article h5 {
+						font-size: 20px;
+						line-height: 24px;
+						padding: 30px 0;
 					}
 					article h6 {
 						font-size: 20px;
 						line-height: 28px;
-						padding: 40px 0;
-					}
-					article h1:first-child {
-						padding-top: 0;
-					}
-					article h2:first-child {
-						padding-top: 0;
-					}
-					article h3:first-child {
-						padding-top: 0;
-					}
-					article h4:first-child {
-						padding-top: 0;
-					}
-					article h5:first-child {
-						padding-top: 0;
-					}
-					article h6:first-child {
-						padding-top: 0;
+						padding: 30px 0;
 					}
 					article ul,
 					article ol {
-						padding: 20px 0 40px;
-					}
-					article ol li {
-						list-style-type: decimal;
-					}
-					article ul li {
-						list-style-type: circle;
+						padding: 15px 0 30px;
 					}
 					article ul li,
 					article ol li {
-						font-size: 22px;
-						line-height: 32px;
-						padding: 5px 0;
+						font-size: 19px;
+						line-height: 28px;
+						margin: 0 20px;
 					}
 					article p {
-						font-size: 22px;
-						line-height: 32px;
-						padding-bottom: 20px;
+						font-size: 19px;
+						line-height: 28px;
+						padding-bottom: 10px;
 					}
 					article p strong {
-						font-weight: 600;
-						padding-bottom: 20px;
+						padding-bottom: 10px;
 					}
 					article p img {
-						display: block;
-						width: 80%;
-						margin: 20px auto;
-					}
-					article p code {
-						color: #db70a9;
-					}
-					article blockquote {
-						border-left: 2px solid #fd0fb0;
-						padding-left: 20px;
-						margin-bottom: 40px;
-					}
-					article a {
-						color: #f6eef4;
-					}
-					article blockquote p {
-						padding-bottom: 0;
+						width: 100%;
 					}
 					article pre {
-						margin-bottom: 40px !important;
+						margin-bottom: 20px !important;
 					}
-					article pre code {
-						font-size: 16px;
-					}
-					article hr {
-						border: 0;
-					}
-					article hr::before {
-						display: block;
-						content: '';
-						width: 3px;
-						height: 3px;
-						margin: 2em auto;
-						border-radius: 50%;
-						background: #222;
-						box-shadow: 24px 0 0 0 #222, -24px 0 0 0 #222;
-					}
-					@media screen and (max-width: ${layout.screen.mobile}px) {
-						article h1 {
-							font-size: 32px;
-							line-height: 46px;
-							padding: 30px 0;
-						}
-						article h2 {
-							font-size: 28px;
-							line-height: 40px;
-							padding: 30px 0;
-						}
-						article h3 {
-							font-size: 24px;
-							line-height: 32px;
-							padding: 30px 0;
-						}
-						article h4 {
-							font-size: 22px;
-							line-height: 26px;
-							padding: 30px 0;
-						}
-						article h5 {
-							font-size: 20px;
-							line-height: 24px;
-							padding: 30px 0;
-						}
-						article h6 {
-							font-size: 20px;
-							line-height: 28px;
-							padding: 30px 0;
-						}
-						article ul,
-						article ol {
-							padding: 15px 0 30px;
-						}
-						article ul li,
-						article ol li {
-							font-size: 19px;
-							line-height: 28px;
-							margin: 0 20px;
-						}
-						article p {
-							font-size: 19px;
-							line-height: 28px;
-							padding-bottom: 10px;
-						}
-						article p strong {
-							padding-bottom: 10px;
-						}
-						article p img {
-							width: 100%;
-						}
-						article pre {
-							margin-bottom: 20px !important;
-						}
-					}
-				`}</style>
-				<Footer />
-			</React.Fragment>
-		);
-	}
-}
+				}
+			`}</style>
+			<Footer />
+		</React.Fragment>
+	);
+};
+
+Post.getInitialProps = async (context: NextPageContext) => {
+	const { id } = context.query;
+	const post = await getSingleBlogPost(id);
+	return { post };
+};
 
 export default Radium(Post);
