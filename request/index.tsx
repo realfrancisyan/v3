@@ -39,8 +39,8 @@ const send = async (method: string, url: string, data = {}) => {
 };
 
 export default {
-	get: (url: string, data: any) => send(methods.get, url, data),
-	post: (url: string, data: any) => send(methods.post, url, data),
-	delete: (url: string, data: any) => send(methods.delete, url, data),
-	put: (url: string, data: any) => send(methods.put, url, data)
+	get: (url: string, data?: any) => send(methods.get, url, data),
+	post: (url: string, data?: any) => send(methods.post, url, data),
+	delete: (url: string, data?: any) => send(methods.delete, url, data),
+	put: (url: string, data?: any) => send(methods.put, url, data)
 };
