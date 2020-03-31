@@ -107,6 +107,9 @@ const posts = {
 		color: colors.gray,
 		fontSize: 22,
 		paddingBottom: 20,
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			fontSize: 18
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 14,
 			paddingBottom: 10
@@ -125,6 +128,10 @@ const posts = {
 		color: colors.white,
 		textDecoration: 'none',
 		cursor: 'pointer',
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			fontSize: 50,
+			lineHeight: '64px'
+		},
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline'
@@ -141,6 +148,10 @@ const posts = {
 		lineHeight: '28px',
 		color: colors.semiGray,
 		paddingBottom: 20,
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			fontSize: 18,
+			lineHeight: '24px'
+		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 16,
 			lineHeight: '22px',
@@ -165,7 +176,10 @@ const tags = {
 		fontSize: 22,
 		marginBottom: 20,
 		color: colors.gray,
-		fontWeight: fontWeight.normal
+		fontWeight: fontWeight.normal,
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			fontSize: 18
+		}
 	},
 	tagWrapper: {
 		display: 'block',
@@ -176,6 +190,9 @@ const tags = {
 		fontWeight: fontWeight.bold,
 		cursor: 'pointer',
 		color: colors.gray,
+		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
+			fontSize: 26
+		},
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline',
@@ -249,7 +266,7 @@ const Index = (props: IProps) => {
 
 	return (
 		<React.Fragment>
-			<Header></Header>
+			<Header />
 			<div style={jumbotron.self}>
 				<div style={jumbotron.cover}></div>
 				<div style={jumbotron.titleWrapper}>

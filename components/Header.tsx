@@ -60,6 +60,7 @@ const header = {
 	anchor: {
 		color: colors.white,
 		textDecoration: 'none',
+		cursor: 'pointer',
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				color: colors.plainWhite
@@ -119,19 +120,20 @@ const Header = (props: IProps) => {
 				</div>
 				<ul style={header.list}>
 					<li style={header.listItem}>
-						<Link href="https://www.linkedin.com/in/yanjiajun" prefetch={false}>
-							<a style={header.anchor} target="_blank" key="LinkedIn">
-								LinkedIn
-							</a>
-						</Link>
-					</li>
-					<li style={header.listItem}>
 						<Link href="https://github.com/realfrancisyan" prefetch={false}>
 							<a style={header.anchor} target="_blank" key="Github">
 								Github
 							</a>
 						</Link>
 					</li>
+					{/* <li style={header.listItem}>
+						<Link href="/auth" prefetch={false}>
+							<a style={header.anchor} key="login">
+								登录
+							</a>
+						</Link>
+					</li> */}
+					<li style={header.listItem}><span style={header.anchor}>登出</span></li>
 				</ul>
 			</div>
 		</header>

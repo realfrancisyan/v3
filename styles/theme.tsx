@@ -7,7 +7,9 @@ const theme = {
 		white: '#f6eef4',
 		plainWhite: '#fff',
 		transparent: 'transparent',
-		purple: '#db70a9'
+		purple: '#db70a9',
+		red: '#de2525',
+		lightBlue: '#50d4b9'
 	},
 	fontWeight: {
 		light: 300,
