@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Radium from 'radium';
 import Header from '../../components/Header';
 import { NextPageContext } from 'next';
@@ -9,6 +9,8 @@ import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 import CodeBlock from '../../components/CodeBlock';
 import Footer from '../../components/Footer';
+import Link from 'next/link';
+import Router from 'next/router';
 
 const { colors, fontWeight } = theme;
 
@@ -113,9 +115,39 @@ const ImageComponent = (props: any) => {
 	);
 };
 
+const control = {
+	options: {
+		display: 'flex',
+		paddingTop: 20
+	},
+	edit: {
+		color: colors.white,
+		textDecoration: 'none',
+		marginRight: 10,
+		':hover': {
+			textDecoration: 'underline'
+		}
+	},
+	delete: {
+		color: colors.red,
+		cursor: 'pointer',
+		':hover': {
+			textDecoration: 'underline'
+		}
+	}
+};
+
 const Post = (props: IProps) => {
 	const { post } = props;
+
+	// 防止因没有找到文章报错
+	useEffect(() => {
+		if (!post) Router.push({ pathname: '/' });
+	});
+	if (!post) return null;
+
 	const childProps = { title: post.title }; // 传入 title 给 head 组件
+
 	return (
 		<React.Fragment>
 			<Header {...childProps} />
@@ -128,6 +160,18 @@ const Post = (props: IProps) => {
 						{moment(post.createdAt).format('YYYY年M月DD日')}
 						编写
 					</span>
+					<ul style={control.options}>
+						<li>
+							<Link href={`/post/edit/[id]`} as={`/post/edit/${post.id}`}>
+								<a style={control.edit}>修改</a>
+							</Link>
+						</li>
+						<li>
+							<span style={control.delete} key="123">
+								删除
+							</span>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<article style={content.self} className="markdown">
