@@ -123,13 +123,6 @@ const Header = (props: IProps) => {
 				</div>
 				<ul style={header.list}>
 					<li style={header.listItem}>
-						<Link href="https://www.linkedin.com/in/yanjiajun" prefetch={false}>
-							<a style={header.anchor} target="_blank" key="LinkedIn">
-								LinkedIn
-							</a>
-						</Link>
-					</li>
-					<li style={header.listItem}>
 						<Link href="https://github.com/realfrancisyan" prefetch={false}>
 							<a style={header.anchor} target="_blank" key="Github">
 								Github
