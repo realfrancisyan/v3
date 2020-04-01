@@ -5,7 +5,7 @@ import Footer from '../../../components/Footer';
 import { layout, theme } from '../../../styles';
 import { NextPageContext } from 'next';
 import blog from '../../../api/blog';
-import { IProps } from '../../../interfaces/[id].interface';
+import { IProps } from '../../../interfaces/edit.[id].interface';
 import Router from 'next/router';
 
 const { colors } = theme;
@@ -16,8 +16,10 @@ export const inputArea = {
 		flexDirection: 'column' as 'column',
 		width: '60%',
 		...layout.alignCenter,
-		marginTop: 80,
-		padding: '100px 0'
+		padding: '180px 0 100px',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile
+		}
 	},
 	title: {
 		border: 'none',
@@ -50,20 +52,25 @@ const getSingleBlogPost = async (id: string | Array<string>) => {
 	return post.data;
 };
 
+const editPost = async ({ id, title, description, body, type }) => {
+	console.log({ id, title, description, body, type });
+
+	const params = { id, title, description, content: body, type };
+
+	const result = await blog.editPost(params);
+
+	console.log(result);
+};
+
 const Edit = (props: IProps) => {
-	const [title, setTitle] = useState('');
-	const [subTitle, setSubTitle] = useState('');
-	const [content, setContent] = useState('');
-	const [pageTitle, setPageTitle] = useState({});
+	const { post } = props;
+	const [title, setTitle] = useState(post ? post.title : '');
+	const [subTitle, setSubTitle] = useState(post ? post.description : '');
+	const [content, setContent] = useState(post ? post.body : '');
+	const pageTitle = post ? { title: post.title } : {};
 
 	useEffect(() => {
-		if (props.post) {
-			const { title, body, description } = props.post;
-			setTitle(title);
-			setSubTitle(description);
-			setContent(body);
-			setPageTitle({ title });
-		} else {
+		if (!props.post) {
 			Router.push({ pathname: '/' });
 		}
 	});
@@ -93,7 +100,11 @@ const Edit = (props: IProps) => {
 					value={content}
 					onChange={e => setContent(e.target.value)}
 				></textarea>
-				<button style={inputArea.submit} disabled={!title || !content}>
+				<button
+					style={inputArea.submit}
+					disabled={!title || !content}
+					onClick={() => editPost(props.post)}
+				>
 					提交
 				</button>
 			</div>

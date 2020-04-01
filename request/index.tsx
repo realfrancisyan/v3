@@ -31,7 +31,7 @@ const send = async (method: string, url: string, data = {}) => {
 	if (method === methods.get) {
 		url = setGetMethodParams(url, data);
 	} else {
-		options.body = data;
+		options.body = JSON.stringify(data);
 	}
 
 	const result = await fetch(url, options);

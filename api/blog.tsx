@@ -13,8 +13,13 @@ const getSinglePost = (data = {}) => {
 	return request.get(`${BASE_URL}/blog/public/getSinglePost`, data);
 };
 
+const editPost = (data = {}) => {
+	return request.post(`${BASE_URL}/blog/post/edit`, data);
+};
+
 export default {
 	getPosts,
 	getTags,
-	getSinglePost
+	getSinglePost,
+	editPost
 };
