@@ -1,12 +1,12 @@
 import Radium from 'radium';
 import React, { useState, useEffect } from 'react';
+import Router from 'next/router';
+import { NextPageContext } from 'next';
 import Header from '../../../components/Header';
 import Footer from '../../../components/Footer';
 import { layout, theme } from '../../../styles';
-import { NextPageContext } from 'next';
 import blog from '../../../api/blog';
 import { IProps, ITag } from '../../../interfaces/edit.[id].interface';
-import Router from 'next/router';
 
 const { colors } = theme;
 
@@ -139,7 +139,6 @@ Edit.getInitialProps = async (context: NextPageContext) => {
 	if (id) {
 		const post = await getSingleBlogPost(id);
 		const tags = await getBlogTags();
-		console.log(tags);
 		return { post, tags };
 	}
 

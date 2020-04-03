@@ -26,7 +26,7 @@ class Request {
 			'Content-Type': 'application/json;charset=UTF-8'
 		};
 
-		let userInfo = this.getUserInfo();
+		const userInfo = this.getUserInfo();
 
 		if (userInfo) {
 			console.log('has userInfo - ', userInfo);

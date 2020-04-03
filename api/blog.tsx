@@ -17,9 +17,19 @@ const editPost = (data = {}) => {
 	return request.post(`${BASE_URL}/blog/post/edit`, data);
 };
 
+const createPost = (data = {}) => {
+	return request.post(`${BASE_URL}/blog/post/create`, data);
+};
+
+const deletePost = (data = {}) => {
+	return request.delete(`${BASE_URL}/blog/post/delete`, data);
+};
+
 export default {
 	getPosts,
 	getTags,
 	getSinglePost,
-	editPost
+	editPost,
+	createPost,
+	deletePost
 };
