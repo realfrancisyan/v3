@@ -5,7 +5,7 @@ import Footer from '../../../components/Footer';
 import { layout, theme } from '../../../styles';
 import { NextPageContext } from 'next';
 import blog from '../../../api/blog';
-import { IProps } from '../../../interfaces/edit.[id].interface';
+import { IProps, ITag } from '../../../interfaces/edit.[id].interface';
 import Router from 'next/router';
 
 const { colors } = theme;
@@ -34,6 +34,9 @@ export const inputArea = {
 		boxSizing: 'border-box' as 'border-box',
 		height: 300
 	},
+	dropdown: {
+		marginBottom: 20
+	},
 	submit: {
 		border: 'none',
 		padding: 20,
@@ -52,22 +55,26 @@ const getSingleBlogPost = async (id: string | Array<string>) => {
 	return post.data;
 };
 
-const editPost = async ({ id, title, description, body, type }) => {
-	console.log({ id, title, description, body, type });
-
-	const params = { id, title, description, content: body, type };
-
-	const result = await blog.editPost(params);
-
-	console.log(result);
+const getBlogTags = async () => {
+	const result = await blog.getTags();
+	return result.data;
 };
 
 const Edit = (props: IProps) => {
 	const { post } = props;
 	const [title, setTitle] = useState(post ? post.title : '');
-	const [subTitle, setSubTitle] = useState(post ? post.description : '');
+	const [description, setDescription] = useState(post ? post.description : '');
 	const [content, setContent] = useState(post ? post.body : '');
+	const [tag, setTag] = useState(post ? post.type : '');
 	const pageTitle = post ? { title: post.title } : {};
+
+	const editPost = async () => {
+		const params = { id: post.id, title, description, content, type: +tag };
+		const result = await blog.editPost(params);
+		if (result.message === 'SUCCESS') {
+			Router.push({ pathname: '/post/[id]' }, `/post/${post.id}`);
+		}
+	};
 
 	useEffect(() => {
 		if (!props.post) {
@@ -91,8 +98,8 @@ const Edit = (props: IProps) => {
 					style={inputArea.title}
 					type="text"
 					placeholder="请输入副标题"
-					value={subTitle}
-					onChange={e => setSubTitle(e.target.value)}
+					value={description}
+					onChange={e => setDescription(e.target.value)}
 				/>
 				<textarea
 					style={inputArea.content}
@@ -100,10 +107,23 @@ const Edit = (props: IProps) => {
 					value={content}
 					onChange={e => setContent(e.target.value)}
 				></textarea>
+				<select
+					style={inputArea.dropdown}
+					onChange={e => setTag(e.target.value)}
+					value={tag}
+				>
+					{props.tags.map((tag: ITag) => {
+						return (
+							<option value={tag.type} key={tag.type}>
+								{tag.name}
+							</option>
+						);
+					})}
+				</select>
 				<button
 					style={inputArea.submit}
 					disabled={!title || !content}
-					onClick={() => editPost(props.post)}
+					onClick={editPost}
 				>
 					提交
 				</button>
@@ -118,7 +138,9 @@ Edit.getInitialProps = async (context: NextPageContext) => {
 
 	if (id) {
 		const post = await getSingleBlogPost(id);
-		return { post };
+		const tags = await getBlogTags();
+		console.log(tags);
+		return { post, tags };
 	}
 
 	return {};

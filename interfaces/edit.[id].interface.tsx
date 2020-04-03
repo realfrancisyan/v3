@@ -1,5 +1,6 @@
 export interface IProps {
 	post: IPost;
+	tags: Array<ITag>;
 }
 
 export interface IPost {
@@ -8,4 +9,10 @@ export interface IPost {
 	body: string;
 	type: number;
 	description: string;
+}
+
+export interface ITag {
+	name: string;
+	type: number;
+	createdAt: string;
 }

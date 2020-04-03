@@ -203,7 +203,7 @@ const tags = {
 };
 
 // 将文章列表按月分类
-const mapMonth = function(posts: []) {
+const mapMonth = (posts: []) => {
 	let newPosts = [];
 	posts.forEach((post: IPost) => {
 		let index = -1;
