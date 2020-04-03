@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Radium from 'radium';
 import Header from '../../components/Header';
 import { NextPageContext } from 'next';
-import { IProps, IPost } from '../../interfaces/[id].interface';
+import { IProps } from '../../interfaces/[id].interface';
 import { theme, layout } from '../../styles';
 import blog from '../../api/blog';
 import moment from 'moment';
@@ -148,6 +148,13 @@ const Post = (props: IProps) => {
 
 	const childProps = { title: post.title }; // 传入 title 给 head 组件
 
+	const deletePost = async () => {
+		const result = await blog.deletePost({ id: post.id });
+		if (result.message === 'SUCCESS') {
+			Router.push({ pathname: '/' });
+		}
+	};
+
 	return (
 		<React.Fragment>
 			<Header {...childProps} />
@@ -167,7 +174,11 @@ const Post = (props: IProps) => {
 							</Link>
 						</li>
 						<li>
-							<span style={control.delete} key="123">
+							<span
+								style={control.delete}
+								key="delete-btn"
+								onClick={deletePost}
+							>
 								删除
 							</span>
 						</li>
