@@ -40,6 +40,7 @@
     "@types/radium": "^0.24.2",
     "@types/react": "^16.9.25",
     "@types/react-syntax-highlighter": "^11.0.4",
+    "@types/socket.io-client": "^1.4.32",
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
