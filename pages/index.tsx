@@ -23,15 +23,15 @@ const jumbotron = {
 		display: 'flex',
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			height: 300
-		}
+			height: 300,
+		},
 	},
 	cover: {
 		position: 'absolute' as 'absolute',
 		width: '100%',
 		height: '100%',
 		backgroundColor: 'rgba(0,0,0,0.1)',
-		zIndex: 0
+		zIndex: 0,
 	},
 	titleWrapper: {
 		position: 'relative' as 'relative',
@@ -40,8 +40,8 @@ const jumbotron = {
 		...layout.contentSize.desktop,
 		margin: '0 auto 100px',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			margin: '0 auto 50px'
-		}
+			margin: '0 auto 50px',
+		},
 	},
 	title: {
 		fontSize: 80,
@@ -49,9 +49,9 @@ const jumbotron = {
 		fontWeight: fontWeight.ultra,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 56,
-			textAlign: 'center'
-		}
-	}
+			textAlign: 'center',
+		},
+	},
 };
 
 const content = {
@@ -60,8 +60,8 @@ const content = {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			padding: '60px 0'
-		}
+			padding: '60px 0',
+		},
 	},
 	tagTitle: {
 		fontSize: 30,
@@ -69,12 +69,12 @@ const content = {
 		color: colors.gray,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 20,
-			paddingBottom: 20
-		}
+			paddingBottom: 20,
+		},
 	},
 	wrapper: {
-		display: 'flex'
-	}
+		display: 'flex',
+	},
 };
 
 const posts = {
@@ -84,23 +84,23 @@ const posts = {
 		boxSizing: 'border-box' as 'border-box',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			width: '100%',
-			paddingRight: 0
-		}
+			paddingRight: 0,
+		},
 	},
 	data: {
 		paddingTop: 100,
 		width: '95%',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			width: '100%',
-			paddingTop: 50
-		}
+			paddingTop: 50,
+		},
 	},
 	dataFirstChild: {
 		paddingTop: 0,
 		width: '95%',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			width: '100%'
-		}
+			width: '100%',
+		},
 	},
 	month: {
 		display: 'block',
@@ -108,18 +108,18 @@ const posts = {
 		fontSize: 22,
 		paddingBottom: 20,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			fontSize: 18
+			fontSize: 18,
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 14,
-			paddingBottom: 10
-		}
+			paddingBottom: 10,
+		},
 	},
 	titleWrapper: {
 		display: 'block',
 		textDecoration: 'none',
 		cursor: 'auto',
-		outline: 'none'
+		outline: 'none',
 	},
 	title: {
 		fontSize: 60,
@@ -130,17 +130,17 @@ const posts = {
 		cursor: 'pointer',
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
 			fontSize: 50,
-			lineHeight: '64px'
+			lineHeight: '64px',
 		},
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
-				textDecoration: 'underline'
-			}
+				textDecoration: 'underline',
+			},
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 35,
-			lineHeight: '44px'
-		}
+			lineHeight: '44px',
+		},
 	},
 	description: {
 		display: 'block',
@@ -150,14 +150,14 @@ const posts = {
 		paddingBottom: 20,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
 			fontSize: 18,
-			lineHeight: '24px'
+			lineHeight: '24px',
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 16,
 			lineHeight: '22px',
-			paddingBottom: 10
-		}
-	}
+			paddingBottom: 10,
+		},
+	},
 };
 
 const tags = {
@@ -165,12 +165,12 @@ const tags = {
 		width: '30%',
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			display: 'none'
-		}
+			display: 'none',
+		},
 	},
 	wrapper: {
 		position: 'sticky' as 'sticky',
-		top: 150
+		top: 150,
 	},
 	title: {
 		fontSize: 22,
@@ -178,12 +178,12 @@ const tags = {
 		color: colors.gray,
 		fontWeight: fontWeight.normal,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			fontSize: 18
-		}
+			fontSize: 18,
+		},
 	},
 	tagWrapper: {
 		display: 'block',
-		paddingBottom: 10
+		paddingBottom: 10,
 	},
 	tag: {
 		fontSize: 30,
@@ -191,15 +191,15 @@ const tags = {
 		cursor: 'pointer',
 		color: colors.gray,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			fontSize: 26
+			fontSize: 26,
 		},
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
 				textDecoration: 'underline',
-				color: colors.white
-			}
-		}
-	}
+				color: colors.white,
+			},
+		},
+	},
 };
 
 // 将文章列表按月分类
@@ -216,7 +216,7 @@ const mapMonth = (posts: []) => {
 		if (!alreadyExists) {
 			newPosts.push({
 				month: post.month,
-				data: [post]
+				data: [post],
 			});
 		} else {
 			newPosts[index].data.push(post);
@@ -245,7 +245,7 @@ const getBlogTags = async () => {
 	return tags;
 };
 
-const getBlogTag = (tags: [{}], type: any) => {
+const getBlogTag = (tags: Array<{}>, type: string | string[] | number) => {
 	const result = tags.filter((tag: ITag) => tag.type === +type);
 	if (result.length) {
 		return result[0];

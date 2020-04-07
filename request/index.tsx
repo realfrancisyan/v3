@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 import Cookies from 'universal-cookie';
-import { IOptions } from '../interfaces/request.interface';
+import { IOptions, IUserInfo } from '../interfaces/request.interface';
 
 const USER_INFO = 'userInfo';
 export const cookies = new Cookies();
@@ -51,7 +51,7 @@ class Request {
 		return result;
 	}
 
-	setUserInfo(info: any) {
+	setUserInfo(info: IUserInfo) {
 		const { data } = info;
 		cookies.set(USER_INFO, data);
 	}

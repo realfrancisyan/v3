@@ -156,7 +156,6 @@ const Post = (props: IProps) => {
 				Router.push({ pathname: '/' });
 			}
 		}
-		console.log(false);
 	};
 
 	const [userInfo, setUserInfo] = useState(null);

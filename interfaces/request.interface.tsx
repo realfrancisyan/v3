@@ -3,3 +3,8 @@ export interface IOptions {
 	headers?: {};
 	body?: any;
 }
+
+export interface IUserInfo {
+	data: {};
+	user: {};
+}
