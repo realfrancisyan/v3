@@ -55,9 +55,8 @@ const openSocket = () => {
 };
 
 const Auth = (props: IProps) => {
-	const headerProps = {
-		title: '登录',
-	};
+	const headerProps = { title: '登录' };
+
 	useEffect(() => {
 		socket.on('loginViaCode', (data: any) => {
 			if (props.id === data.id) {
