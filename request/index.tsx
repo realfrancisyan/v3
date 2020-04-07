@@ -60,14 +60,6 @@ class Request {
 		return cookies.get(USER_INFO);
 	}
 
-	/**
-	 * @todo 有真正的登录后删除
-	 */
-	// login() {
-	// 	this.setUserInfo();
-	// 	Router.push({ pathname: '/' });
-	// }
-
 	logout() {
 		cookies.remove(USER_INFO);
 	}

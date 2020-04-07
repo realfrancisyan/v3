@@ -92,10 +92,6 @@ const Header = (props: IProps) => {
 		setBackgroundSwitch(scrollTop > scrollHeight);
 	};
 
-	// const login = () => {
-	// 	Router.push({ pathname: '/auth' });
-	// };
-
 	const logout = () => {
 		request.logout();
 		setUserInfo(null);
@@ -155,7 +151,6 @@ const Header = (props: IProps) => {
 						</li>
 					) : (
 						<li style={header.listItem}>
-							{/* <span style={header.anchor}>登录</span> */}
 							<Link href="/auth" prefetch={false}>
 								<a style={header.anchor} key="login">
 									登录
