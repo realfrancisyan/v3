@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-unfetch';
 import Cookies from 'universal-cookie';
 import { IOptions } from '../interfaces/request.interface';
-import resultObj from '../result';
 import Router from 'next/router';
 
 const USER_INFO = 'userInfo';
