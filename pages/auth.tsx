@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Radium from 'radium';
 import Router from 'next/router';
-import { NextPageContext } from 'next';
 import Header from '../components/Header';
 import user from '../api/user';
 import { IProps } from '../interfaces/auth.interface';
 import { theme } from '../styles';
+import io from 'socket.io-client';
+import request from '../request';
+import BASE_URL from '../request/server';
 
 const { colors } = theme;
+const socket = io(BASE_URL);
 
 const form = {
 	self: {
@@ -16,12 +19,12 @@ const form = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		flexDirection: 'column' as 'column'
+		flexDirection: 'column' as 'column',
 	},
 	descWrapper: {
 		display: 'flex',
 		alignItems: 'center',
-		marginTop: 20
+		marginTop: 20,
 	},
 	refresh: {
 		color: colors.purple,
@@ -29,24 +32,40 @@ const form = {
 		cursor: 'pointer',
 		fontSize: 14,
 		':hover': {
-			textDecoration: 'underline'
-		}
-	}
+			textDecoration: 'underline',
+		},
+	},
 };
 
 const getQRCode = async () => {
 	const result = await user.generateQRCode();
-	return result.data.code || null;
+	const { code, id } = result.data;
+	return { code, id };
 };
 
 const refreshCode = () => {
 	Router.push({ pathname: '/auth' });
 };
 
+const openSocket = () => {
+	const onSuccess = () => {
+		console.log('connected');
+	};
+	socket.on('connect', onSuccess);
+};
+
 const Auth = (props: IProps) => {
 	const headerProps = {
-		title: '登录'
+		title: '登录',
 	};
+	useEffect(() => {
+		socket.on('loginViaCode', (data: any) => {
+			if (props.id === data.id) {
+				request.setUserInfo(data);
+				Router.push({ pathname: '/' });
+			}
+		});
+	});
 	return (
 		<React.Fragment>
 			<Header {...headerProps} />
@@ -64,11 +83,10 @@ const Auth = (props: IProps) => {
 };
 
 Auth.getInitialProps = async () => {
-	const qrCode = await getQRCode();
+	const { code, id } = await getQRCode();
+	openSocket();
 
-	return {
-		qrCode
-	};
+	return { qrCode: code, id };
 };
 
 export default Radium(Auth);

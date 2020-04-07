@@ -2,38 +2,38 @@ import fetch from 'isomorphic-unfetch';
 import Cookies from 'universal-cookie';
 import { IOptions } from '../interfaces/request.interface';
 import resultObj from '../result';
+import Router from 'next/router';
+
+const USER_INFO = 'userInfo';
+export const cookies = new Cookies();
 
 class Request {
 	private methods = {
 		get: 'GET',
 		post: 'POST',
 		delete: 'DELETE',
-		put: 'PUT'
+		put: 'PUT',
 	};
-	private userInfo = 'userInfo';
-	private cookies = new Cookies();
 
 	// 设置 GET 方法的参数
 	private setGetMethodParams(url: string, data = {}) {
 		const _url = new URL(url);
-		Object.keys(data).forEach(key => _url.searchParams.append(key, data[key]));
+		Object.keys(data).forEach((key) =>
+			_url.searchParams.append(key, data[key])
+		);
 		return _url + '';
 	}
 
 	private setHeaders() {
 		const headers = {
 			Accept: 'application/json',
-			'Content-Type': 'application/json;charset=UTF-8'
+			'Content-Type': 'application/json;charset=UTF-8',
 		};
 
 		const userInfo = this.getUserInfo();
 
 		if (userInfo) {
-			console.log('has userInfo - ', userInfo);
 			headers['Authorization'] = `Bearer ${userInfo.token}`;
-		} else {
-			console.log('no userInfo - ', userInfo);
-			this.setUserInfo(); // @to-do 有真正的登录后删除
 		}
 
 		return headers;
@@ -49,21 +49,29 @@ class Request {
 			options.body = JSON.stringify(data);
 		}
 
-		const result = fetch(url, options).then(res => res.json());
+		const result = fetch(url, options).then((res) => res.json());
 		return result;
 	}
 
-	private setUserInfo() {
-		const { data } = resultObj;
-		this.cookies.set(this.userInfo, data);
+	setUserInfo(info: any) {
+		const { data } = info;
+		cookies.set(USER_INFO, data);
 	}
 
-	private getUserInfo() {
-		return this.cookies.get(this.userInfo);
+	getUserInfo() {
+		return cookies.get(USER_INFO);
 	}
+
+	/**
+	 * @todo 有真正的登录后删除
+	 */
+	// login() {
+	// 	this.setUserInfo();
+	// 	Router.push({ pathname: '/' });
+	// }
 
 	logout() {
-		this.cookies.remove(this.userInfo);
+		cookies.remove(USER_INFO);
 	}
 
 	get(url: string, data?: any) {

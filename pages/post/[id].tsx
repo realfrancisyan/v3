@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Radium from 'radium';
 import Header from '../../components/Header';
 import { NextPageContext } from 'next';
@@ -11,25 +11,26 @@ import CodeBlock from '../../components/CodeBlock';
 import Footer from '../../components/Footer';
 import Link from 'next/link';
 import Router from 'next/router';
+import request from '../../request';
 
 const { colors, fontWeight } = theme;
 
 const jumbotron = {
 	self: {
 		paddingTop: 80,
-		background: colors.lightGray
+		background: colors.lightGray,
 	},
 	cover: {
 		padding: '200px 0',
 		width: '60%',
 		...layout.alignCenter,
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%'
+			width: '80%',
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
-			padding: '100px 0'
-		}
+			padding: '100px 0',
+		},
 	},
 	title: {
 		fontSize: 100,
@@ -38,8 +39,8 @@ const jumbotron = {
 		wordBreak: 'break-word' as 'break-word',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 54,
-			lineHeight: '59px'
-		}
+			lineHeight: '59px',
+		},
 	},
 	description: {
 		width: '90%',
@@ -51,11 +52,11 @@ const jumbotron = {
 			width: '100%',
 			fontSize: 21,
 			lineHeight: '26px',
-			padding: '10px 0'
-		}
+			padding: '10px 0',
+		},
 	},
 	name: {
-		color: colors.purple
+		color: colors.purple,
 	},
 	date: {
 		display: 'block',
@@ -63,9 +64,9 @@ const jumbotron = {
 		paddingTop: 30,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			fontSize: 16,
-			lineHeight: '23px'
-		}
-	}
+			lineHeight: '23px',
+		},
+	},
 };
 
 const content = {
@@ -74,13 +75,13 @@ const content = {
 		...layout.alignCenter,
 		padding: '200px 0',
 		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%'
+			width: '80%',
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
-			padding: '100px 0'
-		}
-	}
+			padding: '100px 0',
+		},
+	},
 };
 
 const getSingleBlogPost = async (id: string | Array<string>) => {
@@ -101,7 +102,7 @@ const ImageComponent = (props: any) => {
 		src: props.src.replace(
 			'auracloudapp.oss-cn-shenzhen.aliyuncs.com',
 			'assets.auracloudapp.com'
-		)
+		),
 	};
 	return (
 		<a
@@ -118,23 +119,23 @@ const ImageComponent = (props: any) => {
 const control = {
 	options: {
 		display: 'flex',
-		paddingTop: 20
+		paddingTop: 20,
 	},
 	edit: {
 		color: colors.white,
 		textDecoration: 'none',
 		marginRight: 10,
 		':hover': {
-			textDecoration: 'underline'
-		}
+			textDecoration: 'underline',
+		},
 	},
 	delete: {
 		color: colors.red,
 		cursor: 'pointer',
 		':hover': {
-			textDecoration: 'underline'
-		}
-	}
+			textDecoration: 'underline',
+		},
+	},
 };
 
 const Post = (props: IProps) => {
@@ -149,11 +150,24 @@ const Post = (props: IProps) => {
 	const childProps = { title: post.title }; // 传入 title 给 head 组件
 
 	const deletePost = async () => {
-		const result = await blog.deletePost({ id: post.id });
-		if (result.message === 'SUCCESS') {
-			Router.push({ pathname: '/' });
+		if (confirm('确认要删除吗？')) {
+			const result = await blog.deletePost({ id: post.id });
+			if (result.message === 'SUCCESS') {
+				Router.push({ pathname: '/' });
+			}
 		}
+		console.log(false);
 	};
+
+	const [userInfo, setUserInfo] = useState(null);
+
+	useEffect(() => {
+		const getUserInfo = async () => {
+			const _userInfo = await request.getUserInfo();
+			setUserInfo(_userInfo);
+		};
+		if (!userInfo) getUserInfo();
+	});
 
 	return (
 		<React.Fragment>
@@ -167,22 +181,25 @@ const Post = (props: IProps) => {
 						{moment(post.createdAt).format('YYYY年M月DD日')}
 						编写
 					</span>
-					<ul style={control.options}>
-						<li>
-							<Link href={`/post/edit/[id]`} as={`/post/edit/${post.id}`}>
-								<a style={control.edit}>修改</a>
-							</Link>
-						</li>
-						<li>
-							<span
-								style={control.delete}
-								key="delete-btn"
-								onClick={deletePost}
-							>
-								删除
-							</span>
-						</li>
-					</ul>
+
+					{userInfo ? (
+						<ul style={control.options}>
+							<li>
+								<Link href={`/post/edit/[id]`} as={`/post/edit/${post.id}`}>
+									<a style={control.edit}>修改</a>
+								</Link>
+							</li>
+							<li>
+								<span
+									style={control.delete}
+									key="delete-btn"
+									onClick={deletePost}
+								>
+									删除
+								</span>
+							</li>
+						</ul>
+					) : null}
 				</div>
 			</div>
 			<article style={content.self} className="markdown">
@@ -191,7 +208,7 @@ const Post = (props: IProps) => {
 					renderers={{
 						code: CodeBlock,
 						link: LinkComponent,
-						image: ImageComponent
+						image: ImageComponent,
 					}}
 				></ReactMarkdown>
 			</article>
