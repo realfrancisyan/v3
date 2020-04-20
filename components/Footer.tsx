@@ -94,21 +94,6 @@ const Footer = () => {
 					© 2017-{moment().format('YYYY')} Jiajun Yan. All rights reserved.
 				</p>
 			</div>
-			<ul>
-				<li style={footerStyle.links}>
-					<Link href="http://www.beian.miit.gov.cn/" prefetch={false}>
-						<a style={footerStyle.anchor} target="_blank" key="beian1">
-							<span>粤 ICP 备 19153485 号</span>
-						</a>
-					</Link>
-					<Link href="http://www.beian.gov.cn" prefetch={false}>
-						<a style={footerStyle.anchor} target="_blank" key="beian2">
-							<img style={footerStyle.icon} src={BeiAnIcon} alt="bei an" />
-							<span>粤公网安备 44010502001478 号</span>
-						</a>
-					</Link>
-				</li>
-			</ul>
 		</footer>
 	);
 };
