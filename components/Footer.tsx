@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Radium from 'radium';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 import { layout, theme } from '../styles';
 
 const { colors, fontWeight } = theme;
@@ -10,13 +9,7 @@ const footer = {
 	self: {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
-		padding: '40px 0',
-		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%',
-		},
-		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			...layout.contentSize.mobile
-		}
+		padding: '40px 0'
 	},
 	titleWrapper: {
 		display: 'flex',
@@ -75,20 +68,11 @@ const footer = {
 };
 
 const Footer = () => {
-	const pageToShrink = ['/post/[id]']; // 需要将 footer 的宽度缩小的页面
-	const router = useRouter();
-	const [footerStyle, setFooterStyle] = useState(footer);
-	useEffect(() => {
-		if (pageToShrink.includes(router.pathname)) {
-			footerStyle.self.width = '60%';
-		}
-		setFooterStyle(footerStyle);
-	});
 	return (
-		<footer style={footerStyle.self}>
-			<div style={footerStyle.titleWrapper}>
-				<h2 style={footerStyle.title}>Jiajun Yan</h2>
-				<p style={footerStyle.copyright}>
+		<footer style={footer.self}>
+			<div style={footer.titleWrapper}>
+				<h2 style={footer.title}>Jiajun Yan</h2>
+				<p style={footer.copyright}>
 					© 2017-{moment().format('YYYY')} Jiajun Yan. All rights reserved.
 				</p>
 			</div>
