@@ -127,6 +127,7 @@ const Header = (props: IProps) => {
 					name="viewport"
 					content="initial-scale=1,maximum-scale=1, minimum-scale=1"
 				/>
+				<link rel="stylesheet" type="text/css" href="/inter/inter.css" />
 				<link rel="stylesheet" type="text/css" href="/nprogress.css" />
 			</Head>
 			<div style={header.wrapper}>

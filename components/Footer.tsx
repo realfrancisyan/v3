@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Radium from 'radium';
 import moment from 'moment';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import BeiAnIcon from '../assets/images/beian.png';
 import { layout, theme } from '../styles';
 
 const { colors, fontWeight } = theme;
