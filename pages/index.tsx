@@ -61,6 +61,7 @@ const content = {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile,
 			padding: '60px 0',
 		},
 	},
