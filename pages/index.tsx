@@ -18,7 +18,7 @@ const jumbotron = {
 		width: '100%',
 		height: 500,
 		backgroundColor: colors.gray,
-		backgroundImage: `url(https://assets.auracloudapp.com/img/hero.jpg)`,
+		backgroundImage: `url(https://assets.auracloudapp.com/img/hero-black.jpg)`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 		display: 'flex',
