@@ -9,14 +9,17 @@ const footer = {
 	self: {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
-		padding: '40px 0'
+		padding: '40px 0',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			...layout.contentSize.mobile,
+		},
 	},
 	titleWrapper: {
 		display: 'flex',
 		paddingBottom: 20,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			flexDirection: 'column'
-		}
+			flexDirection: 'column',
+		},
 	},
 	title: {
 		marginRight: 20,
@@ -25,24 +28,24 @@ const footer = {
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			marginRight: 0,
 			marginBottom: 10,
-			fontSize: 16
-		}
+			fontSize: 16,
+		},
 	},
 	copyright: {
 		alignSelf: 'flex-end',
 		fontSize: 14,
 		color: colors.gray,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			alignSelf: 'auto'
-		}
+			alignSelf: 'auto',
+		},
 	},
 	links: {
 		display: 'flex',
 		alignItems: 'center',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			flexDirection: 'column',
-			alignItems: 'stretch'
-		}
+			alignItems: 'stretch',
+		},
 	},
 	anchor: {
 		marginRight: 20,
@@ -53,18 +56,18 @@ const footer = {
 		color: colors.gray,
 		[`@media screen and (min-width: ${layout.screen.laptop}px)`]: {
 			':hover': {
-				textDecoration: 'underline'
-			}
+				textDecoration: 'underline',
+			},
 		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			marginBottom: 5
-		}
+			marginBottom: 5,
+		},
 	},
 	icon: {
 		marginRight: 5,
 		width: 15,
-		height: 15
-	}
+		height: 15,
+	},
 };
 
 const Footer = () => {

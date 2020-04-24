@@ -20,17 +20,18 @@ const jumbotron = {
 		backgroundColor: colors.gray,
 		backgroundImage: `url(https://assets.auracloudapp.com/img/hero.jpg)`,
 		backgroundSize: 'cover',
+		backgroundPosition: 'center',
 		display: 'flex',
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			height: 300,
-		},
+		}
 	},
 	cover: {
 		position: 'absolute' as 'absolute',
 		width: '100%',
 		height: '100%',
-		backgroundColor: 'rgba(0,0,0,0.1)',
+		backgroundColor: 'rgba(0,0,0,0.5)',
 		zIndex: 0,
 	},
 	titleWrapper: {

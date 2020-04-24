@@ -14,7 +14,7 @@ export const inputArea = {
 	self: {
 		display: 'flex',
 		flexDirection: 'column' as 'column',
-		width: '60%',
+		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		padding: '180px 0 100px',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {

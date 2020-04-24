@@ -22,11 +22,8 @@ const jumbotron = {
 	},
 	cover: {
 		padding: '200px 0',
-		width: '60%',
+		...layout.contentSize.desktop,
 		...layout.alignCenter,
-		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%',
-		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
 			padding: '100px 0',
@@ -71,12 +68,9 @@ const jumbotron = {
 
 const content = {
 	self: {
-		width: '60%',
+		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		padding: '200px 0',
-		[`@media screen and (max-width: ${layout.screen.desktop}px)`]: {
-			width: '80%',
-		},
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
 			padding: '100px 0',
