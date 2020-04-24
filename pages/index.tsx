@@ -31,7 +31,7 @@ const jumbotron = {
 		position: 'absolute' as 'absolute',
 		width: '100%',
 		height: '100%',
-		backgroundColor: 'rgba(0,0,0,0.5)',
+		backgroundColor: 'rgba(0,0,0,0.2)',
 		zIndex: 0,
 	},
 	titleWrapper: {
