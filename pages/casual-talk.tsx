@@ -8,7 +8,7 @@ import lifeTalk from '../api/casual-talk';
 import { IProps } from '../interfaces/life-talk.interface';
 import moment from 'moment';
 
-const { colors, fontWeight } = theme;
+const { colors } = theme;
 
 const content = {
 	self: {
@@ -24,23 +24,21 @@ const content = {
 	mainTitle: {
 		fontSize: 50,
 		marginTop: 40,
+		color: colors.lightBlue,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			fontSize: 30
-		}
+			fontSize: 30,
+		},
 	},
 	post: {
 		padding: `40px 0 20px`,
 		borderTop: `1px solid ${colors.lightGray}`,
 	},
-	firstPost: {
-		padding: `0 0 20px`,
-	},
 	title: {
 		fontSize: 36,
 		paddingBottom: 10,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			fontSize: 26
-		}
+			fontSize: 26,
+		},
 	},
 	date: {
 		display: 'block',
@@ -48,8 +46,8 @@ const content = {
 		paddingBottom: 40,
 		color: colors.gray,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			fontSize: 18
-		}
+			fontSize: 16,
+		},
 	},
 };
 
@@ -81,30 +79,23 @@ const ImageComponent = (props: any) => {
 };
 
 const getPosts = async () => {
-	const posts = await lifeTalk.getPosts();
-
+	const posts = await lifeTalk.getPosts({ pageNo: 1, pageSize: 9999 });
 	return posts.data;
 };
 
 const LifeTalk = (props: IProps) => {
 	const headerProps = { title: '随意说' };
-
 	const { posts } = props;
-
-	console.log(posts);
 
 	return (
 		<React.Fragment>
 			<Header {...headerProps} />
 
 			<article style={content.self}>
-				<h2 style={content.mainTitle}>随意说</h2>
-				{posts.map((post, index) => {
+				<h2 style={content.mainTitle}>Casual Talk 随意说</h2>
+				{posts.map((post) => {
 					return (
-						<div
-							style={index === 0 ? content.firstPost : content.post}
-							key={post.id}
-						>
+						<div style={content.post} key={post.id}>
 							<h3 style={content.title}>{post.title}</h3>
 							<span style={content.date}>
 								{moment(post.createdAt).format('YYYY年M月DD日')}
