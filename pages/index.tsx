@@ -25,7 +25,7 @@ const jumbotron = {
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			height: 300,
-		}
+		},
 	},
 	cover: {
 		position: 'absolute' as 'absolute',
@@ -123,6 +123,7 @@ const posts = {
 		cursor: 'auto',
 		outline: 'none',
 	},
+
 	title: {
 		fontSize: 60,
 		lineHeight: '72px',
@@ -299,24 +300,24 @@ const Index = (props: IProps) => {
 									{monthData.data.map((post: IPost) => {
 										return (
 											<React.Fragment key={post.id}>
-												<Link
-													href="/post/[id]"
-													as={`/post/${post.id}`}
-													prefetch={false}
-												>
-													<a style={posts.titleWrapper}>
-														<span style={posts.title} key={post.id}>
+												<div style={posts.titleWrapper}>
+													<Link
+														href="/post/[id]"
+														as={`/post/${post.id}`}
+														prefetch={false}
+													>
+														<a style={posts.title} key={post.id}>
 															{post.title}
+														</a>
+													</Link>
+													{post.description ? (
+														<span style={posts.description}>
+															{post.description}
 														</span>
-													</a>
-												</Link>
-												{post.description ? (
-													<span style={posts.description}>
-														{post.description}
-													</span>
-												) : (
-													''
-												)}
+													) : (
+														''
+													)}
+												</div>
 											</React.Fragment>
 										);
 									})}
