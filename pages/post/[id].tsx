@@ -173,6 +173,9 @@ const Post = (props: IProps) => {
 						由 <span style={jumbotron.name}>Jiajun Yan</span> 于
 						{moment(post.createdAt).format('YYYY年M月DD日')}
 						编写
+						{post.updatedAt
+							? `，于${moment(post.updatedAt).format('YYYY年M月DD日')}更新`
+							: ''}
 					</span>
 
 					{userInfo ? (

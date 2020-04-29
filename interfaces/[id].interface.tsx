@@ -9,4 +9,5 @@ export interface IPost {
 	createdAt: string;
 	type: number;
 	description?: string;
+	updatedAt?: string;
 }
