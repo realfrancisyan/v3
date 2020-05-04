@@ -96,6 +96,10 @@ const content = {
 			display: 'none',
 		},
 	},
+	catalog: {
+		marginBottom: '10px',
+		paddingLeft: '15px'
+	},
 	sidebarWrapper: {
 		position: 'sticky' as 'sticky',
 		top: 100,
@@ -263,17 +267,20 @@ const Post = (props: IProps) => {
 				</article>
 				<aside style={content.sidebar}>
 					{titles.length ? (
-						<div style={content.sidebarWrapper} className="sidebar-scroll">
-							{titles.map((title) => {
-								return (
-									<p key={title}>
-										<a href={`#${title}`} style={content.sidebarTitle}>
-											{title}
-										</a>
-									</p>
-								);
-							})}
-						</div>
+						<React.Fragment>
+							<h2 style={content.catalog}>目录</h2>
+							<div style={content.sidebarWrapper} className="sidebar-scroll">
+								{titles.map((title) => {
+									return (
+										<p key={title}>
+											<a href={`#${title}`} style={content.sidebarTitle}>
+												{title}
+											</a>
+										</p>
+									);
+								})}
+							</div>
+						</React.Fragment>
 					) : (
 						''
 					)}
@@ -446,20 +453,6 @@ const Post = (props: IProps) => {
 					article pre {
 						margin-bottom: 20px !important;
 					}
-				}
-				.sidebar-scroll::-webkit-scrollbar-track {
-					-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-					border-radius: 10px;
-					background-color: #242324;
-				}
-				.sidebar-scroll::-webkit-scrollbar {
-					width: 6px;
-					background-color: #242324;
-				}
-				.sidebar-scroll::-webkit-scrollbar-thumb {
-					border-radius: 10px;
-					-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-					background-color: #555;
 				}
 			`}</style>
 			<Footer />

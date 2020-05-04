@@ -174,6 +174,8 @@ const tags = {
 	wrapper: {
 		position: 'sticky' as 'sticky',
 		top: 150,
+		// maxHeight: '500px',
+		overflow: 'auto' as 'auto'
 	},
 	title: {
 		fontSize: 22,
@@ -326,7 +328,7 @@ const Index = (props: IProps) => {
 						})}
 					</ul>
 					<div style={tags.self}>
-						<ul style={tags.wrapper}>
+						<ul style={tags.wrapper} className="sidebar-scroll">
 							<h3 style={tags.title}>分类查询</h3>
 							{props.tags.map((tag: ITag) => {
 								return (
