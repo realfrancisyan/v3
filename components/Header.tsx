@@ -33,7 +33,7 @@ const header = {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		width: '90%',
+		...layout.contentSize.desktop,
 		...layout.alignCenter,
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,

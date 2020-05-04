@@ -14,6 +14,7 @@ import Router from 'next/router';
 import request from '../../request';
 
 const { colors, fontWeight } = theme;
+let titles = []; // 侧边栏标题
 
 const jumbotron = {
 	self: {
@@ -70,10 +71,74 @@ const content = {
 	self: {
 		...layout.contentSize.desktop,
 		...layout.alignCenter,
+		display: 'flex',
+		justifyContent: 'space-between',
 		padding: '200px 0',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
 			...layout.contentSize.mobile,
 			padding: '100px 0',
+		},
+	},
+	article: {
+		width: '70%',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			width: '100%'
+		},
+	},
+	title: {
+		paddingTop: '100px',
+		marginTop: '-100px',
+	},
+	sidebar: {
+		width: '25%',
+		position: 'relative' as 'relative',
+		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
+			display: 'none'
+		},
+	},
+	sidebarWrapper: {
+		position: 'sticky' as 'sticky',
+		top: 100,
+		maxHeight: '600px',
+		overflowY: 'auto' as 'auto',
+		padding: '0 10px 0 15px',
+		background: colors.lightGray,
+		borderRadius: '8px',
+	},
+	sidebarTitleWrapper: {
+		padding: '2px 0',
+	},
+	firstSidebarTitleWrapper: {
+		paddingTop: '10px',
+	},
+	lastSidebarTitleWrapper: {
+		paddingBottom: '10px',
+	},
+	sidebarTitle: {
+		lineHeight: '24px',
+		color: colors.plainWhite,
+		textDecoration: 'none',
+	},
+};
+
+const control = {
+	options: {
+		display: 'flex',
+		paddingTop: 20,
+	},
+	edit: {
+		color: colors.white,
+		textDecoration: 'none',
+		marginRight: 10,
+		':hover': {
+			textDecoration: 'underline',
+		},
+	},
+	delete: {
+		color: colors.red,
+		cursor: 'pointer',
+		':hover': {
+			textDecoration: 'underline',
 		},
 	},
 };
@@ -81,6 +146,20 @@ const content = {
 const getSingleBlogPost = async (id: string | Array<string>) => {
 	const post = await blog.getSinglePost({ id });
 	return post.data;
+};
+
+const HeadingComponent = (props: any) => {
+	if (props.level === 2) {
+		const { value } = props.children[0].props;
+		titles.push(value);
+		return (
+			<h2 id={value} style={content.title}>
+				{props.children}
+			</h2>
+		);
+	}
+	const Heading = ReactMarkdown.renderers.heading;
+	return <Heading {...props} />;
 };
 
 const LinkComponent = (props: any) => {
@@ -110,37 +189,16 @@ const ImageComponent = (props: any) => {
 	);
 };
 
-const control = {
-	options: {
-		display: 'flex',
-		paddingTop: 20,
-	},
-	edit: {
-		color: colors.white,
-		textDecoration: 'none',
-		marginRight: 10,
-		':hover': {
-			textDecoration: 'underline',
-		},
-	},
-	delete: {
-		color: colors.red,
-		cursor: 'pointer',
-		':hover': {
-			textDecoration: 'underline',
-		},
-	},
-};
-
 const Post = (props: IProps) => {
 	const { post } = props;
+	// titles = []
 
 	// 防止因没有找到文章报错
 	useEffect(() => {
 		if (!post) Router.push({ pathname: '/' });
 	});
-	if (!post) return null;
 
+	if (!post) return null;
 	const childProps = { title: post.title }; // 传入 title 给 head 组件
 
 	const deletePost = async () => {
@@ -198,16 +256,41 @@ const Post = (props: IProps) => {
 					) : null}
 				</div>
 			</div>
-			<article style={content.self} className="markdown">
-				<ReactMarkdown
-					source={post.body}
-					renderers={{
-						code: CodeBlock,
-						link: LinkComponent,
-						image: ImageComponent,
-					}}
-				></ReactMarkdown>
-			</article>
+			<section style={content.self}>
+				<article style={content.article} className="markdown">
+					<ReactMarkdown
+						source={post.body}
+						renderers={{
+							heading: HeadingComponent,
+							code: CodeBlock,
+							link: LinkComponent,
+							image: ImageComponent,
+						}}
+					></ReactMarkdown>
+				</article>
+				<aside style={content.sidebar}>
+					<div style={content.sidebarWrapper} className="sidebar-scroll">
+						{titles.map((title, index) => {
+							return (
+								<p
+									style={
+										index === 0
+											? content.firstSidebarTitleWrapper
+											: index === titles.length - 1
+											? content.lastSidebarTitleWrapper
+											: content.sidebarTitleWrapper
+									}
+									key={title}
+								>
+									<a href={`#${title}`} style={content.sidebarTitle}>
+										{title}
+									</a>
+								</p>
+							);
+						})}
+					</div>
+				</aside>
+			</section>
 			<style jsx global>{`
 				article h1 {
 					font-size: 46px;
@@ -376,6 +459,20 @@ const Post = (props: IProps) => {
 						margin-bottom: 20px !important;
 					}
 				}
+				.sidebar-scroll::-webkit-scrollbar-track {
+					-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					background-color: #242324;
+				}
+				.sidebar-scroll::-webkit-scrollbar {
+					width: 6px;
+					background-color: #242324;
+				}
+				.sidebar-scroll::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					background-color: #555;
+				}
 			`}</style>
 			<Footer />
 		</React.Fragment>
@@ -385,6 +482,7 @@ const Post = (props: IProps) => {
 Post.getInitialProps = async (context: NextPageContext) => {
 	const { id } = context.query;
 	const post = await getSingleBlogPost(id);
+	titles = [];
 	return { post };
 };
 
