@@ -82,7 +82,7 @@ const content = {
 	article: {
 		width: '70%',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			width: '100%'
+			width: '100%',
 		},
 	},
 	title: {
@@ -93,7 +93,7 @@ const content = {
 		width: '25%',
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
-			display: 'none'
+			display: 'none',
 		},
 	},
 	sidebarWrapper: {
@@ -101,23 +101,16 @@ const content = {
 		top: 100,
 		maxHeight: '600px',
 		overflowY: 'auto' as 'auto',
-		padding: '0 10px 0 15px',
+		padding: '5px 10px 5px 15px',
 		background: colors.lightGray,
 		borderRadius: '8px',
 	},
-	sidebarTitleWrapper: {
-		padding: '2px 0',
-	},
-	firstSidebarTitleWrapper: {
-		paddingTop: '10px',
-	},
-	lastSidebarTitleWrapper: {
-		paddingBottom: '10px',
-	},
 	sidebarTitle: {
+		display: 'inline-block',
 		lineHeight: '24px',
 		color: colors.plainWhite,
 		textDecoration: 'none',
+		padding: '2px 0',
 	},
 };
 
@@ -269,26 +262,21 @@ const Post = (props: IProps) => {
 					></ReactMarkdown>
 				</article>
 				<aside style={content.sidebar}>
-					<div style={content.sidebarWrapper} className="sidebar-scroll">
-						{titles.map((title, index) => {
-							return (
-								<p
-									style={
-										index === 0
-											? content.firstSidebarTitleWrapper
-											: index === titles.length - 1
-											? content.lastSidebarTitleWrapper
-											: content.sidebarTitleWrapper
-									}
-									key={title}
-								>
-									<a href={`#${title}`} style={content.sidebarTitle}>
-										{title}
-									</a>
-								</p>
-							);
-						})}
-					</div>
+					{titles.length ? (
+						<div style={content.sidebarWrapper} className="sidebar-scroll">
+							{titles.map((title) => {
+								return (
+									<p key={title}>
+										<a href={`#${title}`} style={content.sidebarTitle}>
+											{title}
+										</a>
+									</p>
+								);
+							})}
+						</div>
+					) : (
+						''
+					)}
 				</aside>
 			</section>
 			<style jsx global>{`
