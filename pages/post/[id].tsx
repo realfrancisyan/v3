@@ -86,7 +86,7 @@ const content = {
 		},
 	},
 	title: {
-		paddingTop: '100px',
+		paddingTop: '140px',
 		marginTop: '-100px',
 	},
 	sidebar: {
@@ -188,7 +188,6 @@ const ImageComponent = (props: any) => {
 
 const Post = (props: IProps) => {
 	const { post } = props;
-	// titles = []
 
 	// 防止因没有找到文章报错
 	useEffect(() => {
