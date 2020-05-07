@@ -177,6 +177,12 @@ const LifeTalk = (props: IProps) => {
 					line-height: 32px;
 					padding: 5px 0;
 				}
+				article ul li ul,
+				article ul li ol,
+				article ol li ul,
+				article ol li ol {
+					padding-left: 20px;
+				}
 				article p {
 					font-size: 22px;
 					line-height: 32px;
@@ -265,6 +271,12 @@ const LifeTalk = (props: IProps) => {
 						font-size: 19px;
 						line-height: 28px;
 						margin: 0 20px;
+					}
+					article ul li ul,
+					article ul li ol,
+					article ol li ul,
+					article ol li ol {
+						padding-left: 0;
 					}
 					article p {
 						font-size: 19px;
