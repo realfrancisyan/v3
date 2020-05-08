@@ -90,6 +90,7 @@ const content = {
 		marginTop: '-100px',
 	},
 	sidebar: {
+		paddingTop: 40,
 		width: '25%',
 		position: 'relative' as 'relative',
 		[`@media screen and (max-width: ${layout.screen.mobile}px)`]: {
