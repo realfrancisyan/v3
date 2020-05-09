@@ -124,7 +124,7 @@ const Header = (props: IProps) => {
 			<Head>
 				<title>{title}</title>
 			</Head>
-			<div style={header.wrapper}>
+			<nav style={header.wrapper}>
 				<div style={header.logoWrapper}>
 					<h1>
 						<Link href="/">
@@ -154,7 +154,7 @@ const Header = (props: IProps) => {
 						</li>
 					)}
 				</ul>
-			</div>
+			</nav>
 		</header>
 	);
 };
