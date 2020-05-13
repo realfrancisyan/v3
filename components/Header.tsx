@@ -145,13 +145,7 @@ const Header = (props: IProps) => {
 							<span style={header.anchor}>{userInfo.user.name} 登出</span>
 						</li>
 					) : (
-						<li style={header.listItem}>
-							<Link href="/auth" prefetch={false}>
-								<a style={header.anchor} key="login">
-									登录
-								</a>
-							</Link>
-						</li>
+						''
 					)}
 				</ul>
 			</nav>
