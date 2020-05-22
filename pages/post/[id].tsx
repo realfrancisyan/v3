@@ -148,7 +148,14 @@ const getSingleBlogPost = async (id: string | Array<string>) => {
 
 const HeadingComponent = (props: any) => {
 	if (props.level === 2) {
-		const { value } = props.children[0].props;
+		let value = props.children
+			.reduce((result: string, item: any) => {
+				const { value } = item.props;
+				result += value;
+				return result;
+			}, '')
+			.replace(/`/g, '');
+
 		titles.push(value);
 		return (
 			<h2 id={value} style={content.title}>
