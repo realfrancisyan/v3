@@ -20,7 +20,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 					name="viewport"
 					content="initial-scale=1,maximum-scale=1, minimum-scale=1"
 				/>
-				<link rel="stylesheet" type="text/css" href="/fonts/inter/inter.css" />
 				<link rel="stylesheet" type="text/css" href="/css/nprogress.css" />
 			</Head>
 			<GlobalStyles />

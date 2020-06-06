@@ -32,7 +32,8 @@ export const inputArea = {
 		padding: 20,
 		marginBottom: 20,
 		boxSizing: 'border-box' as 'border-box',
-		height: 300
+		height: 300,
+		fontSize: 16
 	},
 	dropdown: {
 		marginBottom: 20

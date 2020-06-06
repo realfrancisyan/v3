@@ -8,7 +8,7 @@ let rules = {
 		background: colors.dark,
 		color: colors.white,
 		fontFamily:
-			'inter,-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",Roboto,"Helvetica Neue",Arial,sans-serif'
+			'-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI","Microsoft JhengHei",Roboto,"Helvetica Neue",Arial,sans-serif'
 	},
 	'h1, h2, h3, h4, h5, h6': {
 		fontWeight: fontWeight.bold
