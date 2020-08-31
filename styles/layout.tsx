@@ -8,7 +8,7 @@ const layout = {
 	// 内容大小
 	contentSize: {
 		desktop: {
-			width: '80%'
+			width: '60%'
 		},
 		mobile: {
 			width: 'calc(100vw - 40px)'
